@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/editName"
+        android:hint="@string/typeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <AutoCompleteTextView
+        android:hint="@string/chooseType"
+        android:id="@+id/editType"
+        android:layout_below="@id/editName"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/pickColor"
+        android:text="@string/pickColor"
+        android:onClick="onButtonClicked"
+        android:layout_below="@+id/editType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/pickedColor"
+        android:background="@drawable/test_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_alignBottom="@+id/pickColor"
+        android:layout_toRightOf="@+id/pickColor"
+        android:layout_toEndOf="@+id/pickColor" />
+    <LinearLayout
+        android:layout_below="@id/pickColor"
+        android:id="@+id/colorPickerLayout"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Gallery
+
+            android:id="@+id/listOfColors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Gallery>
+
+
+    </LinearLayout>
+    <Button
+        android:text="@string/ok"
+        android:id="@+id/addedOk"
+        android:layout_alignParentRight="true"
+            android:layout_below="@+id/colorPickerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="@string/cancel"
+        android:id="@+id/addedCancel"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/colorPickerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

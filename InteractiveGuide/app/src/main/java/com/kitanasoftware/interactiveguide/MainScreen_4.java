@@ -1,0 +1,45 @@
+package com.kitanasoftware.interactiveguide;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+
+import com.kitanasoftware.interactiveguide.map.MapScreen_5;
+
+public class  MainScreen_4 extends AppCompatActivity {
+
+
+    Intent intent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_screen_4);
+    }
+
+    public void MAPclick(View view) {
+        intent = new Intent(getApplicationContext(),MapScreen_5.class);
+        startActivity(intent);//
+    }
+
+    public void AUDIOclick(View view) {
+        intent = new Intent(getApplicationContext(),BroadCastScreen_6.class);
+        startActivity(intent);
+    }
+
+    public void SCHEDULEclick(View view) {
+        intent = new Intent(getApplicationContext(),ScheduleScreen_8.class);
+        startActivity(intent);
+    }
+
+    public void NOTIFICATIONSclick(View view) {
+        intent = new Intent(getApplicationContext(),BroadCastScreen_6.class);
+        startActivity(intent);
+    }
+
+    public void INFORMATIIONclick(View view) {
+        intent = new Intent(getApplicationContext(),InformatoonScreen_9.class);
+        startActivity(intent);
+    }
+}
