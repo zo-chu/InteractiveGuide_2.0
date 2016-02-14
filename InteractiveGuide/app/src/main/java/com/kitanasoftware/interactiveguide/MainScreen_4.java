@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.kitanasoftware.interactiveguide.information.InformatoonScreen_9;
 import com.kitanasoftware.interactiveguide.map.MapScreen_5;
 
 public class  MainScreen_4 extends AppCompatActivity {
