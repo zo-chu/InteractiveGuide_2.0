@@ -3,6 +3,8 @@ package com.kitanasoftware.interactiveguide.information;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -66,6 +68,10 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.informatoon_screen_9);
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
+
         downloadFromParse();
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -159,13 +165,13 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
 
             case R.id.item2 :
 
-                EditText etGuideName = (EditText) findViewById(R.id.etFullName);
-                EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
+//                EditText etGuideName = (EditText) findViewById(R.id.etFullName);
+//                EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
                 EditText etTour = (EditText) findViewById(R.id.etTour);
                 EditText etGoal = (EditText) findViewById(R.id.etTourGoal);
 
-                guideName = etGuideName.getText().toString();
-                guidePhone = etGuidePhone.getText().toString();
+//                guideName = etGuideName.getText().toString();
+//                guidePhone = etGuidePhone.getText().toString();
                 tour = etTour.getText().toString();
                 goal = etGoal.getText().toString();
 

@@ -13,4 +13,9 @@
     <string name="pickColor">Pick a color</string>
     <string name="addingMode">Tap on screen to put a new geopoint</string>
     <string name="delGeo">Delete geopoint</string>
+    <string name="map">Map</string>
+    <string name="audio">Audio</string>
+    <string name="schedule">Schedule</string>
+    <string name="notifications">Notifications</string>
+    <string name="information">Information</string>
 </resources>

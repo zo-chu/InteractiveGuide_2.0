@@ -1,6 +1,8 @@
 package com.kitanasoftware.interactiveguide;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,9 @@ public class  MainScreen_4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen_4);
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#127e83"));
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
     }
 
     public void MAPclick(View view) {
@@ -35,7 +40,7 @@ public class  MainScreen_4 extends AppCompatActivity {
     }
 
     public void NOTIFICATIONSclick(View view) {
-        intent = new Intent(getApplicationContext(),BroadCastScreen_6.class);
+        intent = new Intent(getApplicationContext(),NotificationScreen_7.class);
         startActivity(intent);
     }
 

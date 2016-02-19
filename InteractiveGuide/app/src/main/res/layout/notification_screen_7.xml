@@ -9,4 +9,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kitanasoftware.interactiveguide.NotificationScreen_7">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:hint="Enter Your Notification"
+        android:textAlignment="center"
+        android:background="@drawable/notification_screen_1"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:textAlignment="center"
+        android:hint="Additions"
+        android:background="@drawable/notification_screen_2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/notification_screen_button"
+        android:id="@+id/button8"
+        android:layout_below="@+id/editText3"
+        android:layout_alignRight="@+id/editText3"
+        android:layout_alignEnd="@+id/editText3"
+        android:layout_marginTop="54dp" />
 </RelativeLayout>

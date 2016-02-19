@@ -2,6 +2,8 @@ package com.kitanasoftware.interactiveguide;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +37,9 @@ public class  ScheduleScreen_8 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_screen_8);
 
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#c9e4ba"));
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
+
 
         lvMain = (ListView) findViewById(R.id.listView);
 
@@ -45,6 +50,7 @@ public class  ScheduleScreen_8 extends AppCompatActivity {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
         if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
 
 
