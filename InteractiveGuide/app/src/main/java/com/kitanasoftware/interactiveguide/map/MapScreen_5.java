@@ -1,6 +1,8 @@
 package com.kitanasoftware.interactiveguide.map;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +43,9 @@ public class MapScreen_5 extends AppCompatActivity implements IRegisterReceiver,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_screen_5);
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#127e83"));
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         //map View
         mapView = (HybridMap) findViewById(R.id.hybridMap);
