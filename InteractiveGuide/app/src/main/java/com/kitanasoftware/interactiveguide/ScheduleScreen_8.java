@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class  ScheduleScreen_8 extends AppCompatActivity {
+public class ScheduleScreen_8 extends DrawerAppCompatActivity {
 
     ArrayList<String> arrTime;
     ArrayList<String> arrDes;
@@ -35,7 +36,6 @@ public class  ScheduleScreen_8 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.schedule_screen_8);
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#c9e4ba"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
@@ -82,14 +82,14 @@ public class  ScheduleScreen_8 extends AppCompatActivity {
 
                 }
             });
-        }else{
+        } else {
             try {
                 sp = getSharedPreferences("editor", MODE_PRIVATE);
                 String timeString = sp.getString("arrTime", "");
                 String destinationString = sp.getString("arrDestination", "");
 
-                timeString = timeString.replace("[","").replace("]","");
-                destinationString = destinationString.replace("[","").replace("]","");
+                timeString = timeString.replace("[", "").replace("]", "");
+                destinationString = destinationString.replace("[", "").replace("]", "");
 
                 ScheduleSingleton.getInstance().setArrTime(new ArrayList<>(Arrays.asList(timeString.split("\\s*,\\s*"))));
                 ScheduleSingleton.getInstance().setArrDestination(new ArrayList<>(Arrays.asList(destinationString.split("\\s*,\\s*"))));
@@ -97,7 +97,7 @@ public class  ScheduleScreen_8 extends AppCompatActivity {
                 lvMain.setAdapter(adapterForSchedule);
 
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "You need internet to donload schedule", Toast.LENGTH_SHORT).show();
             }
@@ -105,6 +105,10 @@ public class  ScheduleScreen_8 extends AppCompatActivity {
         }
     }
 
+    @Override
+    public View getContentView() {
+        return getLayoutInflater().inflate(R.layout.schedule_screen_8, null);
+    }
 
 
 }

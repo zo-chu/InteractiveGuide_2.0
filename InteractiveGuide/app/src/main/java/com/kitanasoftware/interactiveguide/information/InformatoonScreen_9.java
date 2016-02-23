@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.kitanasoftware.interactiveguide.DrawerAppCompatActivity;
 import com.kitanasoftware.interactiveguide.R;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -30,7 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  InformatoonScreen_9 extends AppCompatActivity {
+public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
     EditText etText;
 
@@ -57,7 +58,7 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     GuideInform guideInform;
     TourInform tourInform;
     AdditionalInform additionalInform;
-    View edit ;
+    View edit;
     View save;
     byte[] arrPhoto;
     Bitmap bitPhoto;
@@ -67,15 +68,15 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.informatoon_screen_9);
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         downloadFromParse();
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //this is done in DrawerAppCompatAc class
+//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         informList = new ArrayList();
         adapter = new InformationAdapter(getApplicationContext(), informList);
         listView = (ListView) findViewById(R.id.lvInform);
@@ -83,9 +84,13 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     }
 
     @Override
+    public View getContentView() {
+        return getLayoutInflater().inflate(R.layout.informatoon_screen_9, null);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
         return true;
     }
 
@@ -130,15 +135,14 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        if(menu != null) {
+        if (menu != null) {
             menu.clear();
         }
-        if(isEdit==false){
+        if (isEdit == false) {
             menu.setGroupVisible(R.menu.main, false);
             getMenuInflater().inflate(R.menu.main, menu);
 
-        }
-        else if(isEdit==true) {
+        } else if (isEdit == true) {
             menu.setGroupVisible(R.menu.edit, false);
             getMenuInflater().inflate(R.menu.edit, menu);
 
@@ -149,21 +153,20 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         edit = findViewById(R.id.item1);
         save = findViewById(R.id.item2);
         switch (item.getItemId()) {
-            case R.id.item1 :
+            case R.id.item1:
                 invalidateLv();
                 adapter.startEdit();
-                isEdit=true;
+                isEdit = true;
                 invalidateLv();
                 invalidateOptionsMenu();
                 break;
 
-            case R.id.item2 :
+            case R.id.item2:
 
 //                EditText etGuideName = (EditText) findViewById(R.id.etFullName);
 //                EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
@@ -183,10 +186,10 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
                 invalidateLv();
 
                 break;
-
-            case android.R.id.home:
-                this.finish();
-                return true;
+            //this is done in DrawerAppCompatAc class
+            //            case android.R.id.home:
+//                this.finish();
+//                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -262,7 +265,7 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
         informList.add(2, additionalInform);
     }
 
-    public void updateInformArray(){
+    public void updateInformArray() {
         guideInform.setFull_name(sPref.getString(GUIDE_NAME, ""));
         guideInform.setPhone(sPref.getString(GUIDE_PHONE, ""));
         tourInform.setName(sPref.getString(TOUR, ""));
@@ -271,7 +274,7 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
         informList.set(1, tourInform);
     }
 
-    public Bitmap getPhotoFromGallery(){
+    public Bitmap getPhotoFromGallery() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         return BitmapFactory.decodeFile(photoPath, options);

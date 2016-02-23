@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">InteractiveGuide</string>
+    //drawer
 
+    <string name="navigation_drawer_open" >Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     //map related strings
     <string name="addGeopoint">Add geopoint</string>
     <string name="editGeopoints">Edit geopoints</string>

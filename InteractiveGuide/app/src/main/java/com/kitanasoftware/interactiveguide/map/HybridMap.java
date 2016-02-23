@@ -30,7 +30,7 @@ public class HybridMap extends FrameLayout {
         resourceProxy = new DefaultResourceProxyImpl(this.getContext());
         useMapsforgeTiles(Environment.getExternalStorageDirectory().getPath() + File.separator + "israel.map");
         mv.getController().setZoom(15);
-        center(31.915091, 34.768182);
+//        center(31.915091, 34.768182);
     }
 
     public void zoomIn() {
