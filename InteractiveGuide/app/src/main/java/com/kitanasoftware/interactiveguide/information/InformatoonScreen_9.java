@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kitanasoftware.interactiveguide.R;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -50,29 +51,31 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     InformationAdapter adapter;
     ListView listView;
     ArrayList<Information> informList;
-    Button butEdit;
-    Button butSave;
+
     GuideInform guideInform;
     TourInform tourInform;
     AdditionalInform additionalInform;
     View edit ;
     View save;
-    byte[] arrPhoto;
+
     Bitmap bitPhoto;
     private boolean isEdit;
     String photoPath;
+    WorkWithDb workWithDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.informatoon_screen_9);
-        downloadFromParse();
+        workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        informList = workWithDb.getInformList();
+        adapter = new InformationAdapter(getApplicationContext(), informList);
+        listView = (ListView) findViewById(R.id.lvInform);
+        listView.setAdapter(adapter);
+        //downloadFromParse();
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        informList = new ArrayList();
-        adapter = new InformationAdapter(getApplicationContext(), informList);
-        listView = (ListView) findViewById(R.id.lvInform);
 
     }
 
@@ -102,11 +105,9 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
                             public void done(byte[] bytes, ParseException e) {
                                 bitPhoto = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 savePhoto();
-                                saveToPhone();
-
-                                createInformArray();
-                                //  listView = (ListView) findViewById(R.id.lvInform);
-                                // adapter = new InformationAdapter(getApplicationContext(), informList);
+                                workWithDb.addInformation(guideName, guidePhone, tour, goal,company);
+                                informList = workWithDb.getInformList();
+                                adapter = new InformationAdapter(getApplicationContext(), informList);
                                 invalidateLv();
                             }
                         });
@@ -170,9 +171,9 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
                 goal = etGoal.getText().toString();
 
                 saveToPhone();
-                saveToParse();
+                //saveToParse();
                 adapter.stoptEdit();
-                updateInformArray();
+
                 isEdit = false;
                 invalidateLv();
 
@@ -187,13 +188,8 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     }
 
     public void saveToPhone() {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(GUIDE_NAME, guideName);
-        ed.putString(GUIDE_PHONE, guidePhone);
-        ed.putString(TOUR, tour);
-        ed.putString(GOAL, goal);
-        ed.commit();
+        workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        workWithDb.updateInformationByIndex(guideName, guidePhone, tour, goal);
     }
 
     public void saveToParse() {
@@ -241,28 +237,6 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
             }
         }
 
-    }
-
-    public void createInformArray() {
-        //   bitPhoto=getPhotoFromGallery();
-        guideInform = new GuideInform(Information.InformType.GUIDE,
-                sPref.getString(GUIDE_NAME, ""), sPref.getString(GUIDE_PHONE, ""), bitPhoto);
-        tourInform = new TourInform(Information.InformType.TOUR,
-                sPref.getString(TOUR, ""), sPref.getString(GOAL, ""));
-        additionalInform = new AdditionalInform(Information.InformType.ADD, sPref.getString(COMPANY, ""));
-
-        informList.add(0, guideInform);
-        informList.add(1, tourInform);
-        informList.add(2, additionalInform);
-    }
-
-    public void updateInformArray(){
-        guideInform.setFull_name(sPref.getString(GUIDE_NAME, ""));
-        guideInform.setPhone(sPref.getString(GUIDE_PHONE, ""));
-        tourInform.setName(sPref.getString(TOUR, ""));
-        tourInform.setGoal(sPref.getString(GOAL, ""));
-        informList.set(0, guideInform);
-        informList.set(1, tourInform);
     }
 
     public Bitmap getPhotoFromGallery(){
