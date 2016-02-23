@@ -171,8 +171,7 @@ public class AddingDialog extends DialogFragment {
                                       }
         );
 
-        builder.setTitle(R.string.addGeopointMess)
-                .setView(view);
+        builder.setView(view);
         return builder.create();
     }
 }
