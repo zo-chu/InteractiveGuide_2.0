@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="GUIDE INFORMATION"
+        android:textColor="@color/cardview_dark_background"
         android:id="@+id/tvGuideInf"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
