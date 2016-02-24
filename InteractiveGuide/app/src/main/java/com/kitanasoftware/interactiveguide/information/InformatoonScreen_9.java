@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.kitanasoftware.interactiveguide.DrawerAppCompatActivity;
 import com.kitanasoftware.interactiveguide.R;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -53,17 +54,17 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     InformationAdapter adapter;
     ListView listView;
     ArrayList<Information> informList;
-    Button butEdit;
-    Button butSave;
+
     GuideInform guideInform;
     TourInform tourInform;
     AdditionalInform additionalInform;
     View edit;
     View save;
-    byte[] arrPhoto;
+
     Bitmap bitPhoto;
     private boolean isEdit;
     String photoPath;
+    WorkWithDb workWithDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,8 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
-
+        workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        informList = workWithDb.getInformList();
         downloadFromParse();
         //this is done in DrawerAppCompatAc class
 //        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -91,6 +93,7 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -113,11 +116,9 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
                             public void done(byte[] bytes, ParseException e) {
                                 bitPhoto = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 savePhoto();
-                                saveToPhone();
-
-                                createInformArray();
-                                //  listView = (ListView) findViewById(R.id.lvInform);
-                                // adapter = new InformationAdapter(getApplicationContext(), informList);
+                                workWithDb.addInformation(guideName, guidePhone, tour, goal,company);
+                                informList = workWithDb.getInformList();
+                                adapter = new InformationAdapter(getApplicationContext(), informList);
                                 invalidateLv();
                             }
                         });
@@ -135,14 +136,15 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        if (menu != null) {
+        if(menu != null) {
             menu.clear();
         }
-        if (isEdit == false) {
+        if(isEdit==false){
             menu.setGroupVisible(R.menu.main, false);
             getMenuInflater().inflate(R.menu.main, menu);
 
-        } else if (isEdit == true) {
+        }
+        else if(isEdit==true) {
             menu.setGroupVisible(R.menu.edit, false);
             getMenuInflater().inflate(R.menu.edit, menu);
 
@@ -153,56 +155,49 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         edit = findViewById(R.id.item1);
         save = findViewById(R.id.item2);
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.item1 :
                 invalidateLv();
                 adapter.startEdit();
-                isEdit = true;
+                isEdit=true;
                 invalidateLv();
                 invalidateOptionsMenu();
                 break;
 
-            case R.id.item2:
+            case R.id.item2 :
 
-//                EditText etGuideName = (EditText) findViewById(R.id.etFullName);
-//                EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
+                EditText etGuideName = (EditText) findViewById(R.id.etFullName);
+                EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
                 EditText etTour = (EditText) findViewById(R.id.etTour);
                 EditText etGoal = (EditText) findViewById(R.id.etTourGoal);
 
-//                guideName = etGuideName.getText().toString();
-//                guidePhone = etGuidePhone.getText().toString();
+                guideName = etGuideName.getText().toString();
+                guidePhone = etGuidePhone.getText().toString();
                 tour = etTour.getText().toString();
                 goal = etGoal.getText().toString();
 
                 saveToPhone();
-                saveToParse();
+                //saveToParse();
                 adapter.stoptEdit();
-                updateInformArray();
+
                 isEdit = false;
                 invalidateLv();
 
                 break;
-            //this is done in DrawerAppCompatAc class
-            //            case android.R.id.home:
-//                this.finish();
-//                return true;
+            
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void saveToPhone() {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(GUIDE_NAME, guideName);
-        ed.putString(GUIDE_PHONE, guidePhone);
-        ed.putString(TOUR, tour);
-        ed.putString(GOAL, goal);
-        ed.commit();
+        workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        workWithDb.updateInformationByIndex(guideName, guidePhone, tour, goal);
     }
 
     public void saveToParse() {
@@ -252,29 +247,7 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
     }
 
-    public void createInformArray() {
-        //   bitPhoto=getPhotoFromGallery();
-        guideInform = new GuideInform(Information.InformType.GUIDE,
-                sPref.getString(GUIDE_NAME, ""), sPref.getString(GUIDE_PHONE, ""), bitPhoto);
-        tourInform = new TourInform(Information.InformType.TOUR,
-                sPref.getString(TOUR, ""), sPref.getString(GOAL, ""));
-        additionalInform = new AdditionalInform(Information.InformType.ADD, sPref.getString(COMPANY, ""));
-
-        informList.add(0, guideInform);
-        informList.add(1, tourInform);
-        informList.add(2, additionalInform);
-    }
-
-    public void updateInformArray() {
-        guideInform.setFull_name(sPref.getString(GUIDE_NAME, ""));
-        guideInform.setPhone(sPref.getString(GUIDE_PHONE, ""));
-        tourInform.setName(sPref.getString(TOUR, ""));
-        tourInform.setGoal(sPref.getString(GOAL, ""));
-        informList.set(0, guideInform);
-        informList.set(1, tourInform);
-    }
-
-    public Bitmap getPhotoFromGallery() {
+    public Bitmap getPhotoFromGallery(){
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         return BitmapFactory.decodeFile(photoPath, options);
