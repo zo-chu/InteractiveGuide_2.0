@@ -2,6 +2,7 @@ package com.kitanasoftware.interactiveguide.map;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,11 @@ public class GeopointsAdapter extends BaseAdapter {
 
         TextView geoName = (TextView) one_geo_layout.findViewById(R.id.name);
         geoName.setText(geopoints.get(position).getName());
-        geoName.setTextColor(Color.BLACK);
+//        geoName.setTextColor(Color.);
 
         TextView geoType = (TextView) one_geo_layout.findViewById(R.id.type);
         geoType.setText(geopoints.get(position).getType());
-        geoType.setTextColor(Color.BLACK);
+//        geoType.setTextColor(Color.green(R.color.mainColor));
 
         ImageView geoColor = (ImageView) one_geo_layout.findViewById(R.id.color);
         geoColor.setImageResource(geopoints.get(position).getColor());

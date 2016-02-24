@@ -3,6 +3,8 @@ package com.kitanasoftware.interactiveguide.information;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.kitanasoftware.interactiveguide.DrawerAppCompatActivity;
 import com.kitanasoftware.interactiveguide.R;
 import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 import com.parse.FindCallback;
@@ -29,7 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  InformatoonScreen_9 extends AppCompatActivity {
+public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
     EditText etText;
 
@@ -55,7 +58,7 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     GuideInform guideInform;
     TourInform tourInform;
     AdditionalInform additionalInform;
-    View edit ;
+    View edit;
     View save;
 
     Bitmap bitPhoto;
@@ -66,17 +69,25 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.informatoon_screen_9);
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
         workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
         informList = workWithDb.getInformList();
+        downloadFromParse();
+        //this is done in DrawerAppCompatAc class
+//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        informList = new ArrayList();
         adapter = new InformationAdapter(getApplicationContext(), informList);
         listView = (ListView) findViewById(R.id.lvInform);
-        listView.setAdapter(adapter);
-        //downloadFromParse();
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    @Override
+    public View getContentView() {
+        return getLayoutInflater().inflate(R.layout.informatoon_screen_9, null);
     }
 
     @Override
@@ -178,10 +189,7 @@ public class  InformatoonScreen_9 extends AppCompatActivity {
                 invalidateLv();
 
                 break;
-
-            case android.R.id.home:
-                this.finish();
-                return true;
+            
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,4 +1,4 @@
-package com.kitanasoftware.interactiveguide.map;
+package com.kitanasoftware.interactiveguide;
 
 import android.app.Application;
 

@@ -74,7 +74,7 @@ public class MyItemizedOverlay extends ItemizedIconOverlay<OverlayItem> {
 
         if (MapScreen_5.addingMode) {
 
-            createGeo(mapView, (int) x, (int) y, R.drawable.test_icon);
+            createGeo(mapView, (int) x, (int) y, R.drawable.empty_point);
         }
         if (MapScreen_5.editingMode) {
 

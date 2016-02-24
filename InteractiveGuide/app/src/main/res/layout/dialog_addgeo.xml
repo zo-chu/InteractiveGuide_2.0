@@ -1,42 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:orientation="vertical"  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/editName"
-        android:hint="@string/typeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <AutoCompleteTextView
-        android:hint="@string/chooseType"
-        android:id="@+id/editType"
-        android:layout_below="@id/editName"
-        android:textColor="@android:color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/pickColor"
-        android:text="@string/pickColor"
-        android:onClick="onButtonClicked"
-        android:layout_below="@+id/editType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/pickedColor"
-        android:background="@drawable/test_icon"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/addGeoTitle"
+        style="@style/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_alignBottom="@+id/pickColor"
-        android:layout_toRightOf="@+id/pickColor"
-        android:layout_toEndOf="@+id/pickColor" />
-    <LinearLayout
-        android:layout_below="@id/pickColor"
-        android:id="@+id/colorPickerLayout"
-        android:orientation="horizontal"
-        android:visibility="gone"
+        android:text="@string/addGeopointMess" />
+
+    <EditText
+        android:id="@+id/editName"
+        style="@style/mapEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:hint="@string/typeName"
+        android:layout_below="@+id/addGeoTitle"
+        />
+
+    <AutoCompleteTextView
+        android:id="@+id/editType"
+        style="@style/mapEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/chooseType"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/editName"
+         />
+
+    <Button
+        android:id="@+id/pickColor"
+        style="@style/mapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClicked"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/pickColor"
+        android:layout_below="@+id/editType"
+        android:layout_alignLeft="@+id/addGeoTitle"
+        android:layout_alignStart="@+id/addGeoTitle" />
+
+    <ImageView
+        android:id="@+id/pickedColor"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/empty_point_shadow"
+        android:layout_below="@+id/editType"
+        android:layout_toLeftOf="@+id/addedOk"
+        android:layout_toStartOf="@+id/addedOk" />
+
+    <LinearLayout
+        android:id="@+id/colorPickerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pickColor"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Gallery
 
@@ -46,18 +74,30 @@
 
 
     </LinearLayout>
+
     <Button
-        android:text="@string/ok"
         android:id="@+id/addedOk"
-        android:layout_alignParentRight="true"
-            android:layout_below="@+id/colorPickerLayout"
+        style="@style/mapButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:text="@string/cancel"
-        android:id="@+id/addedCancel"
-        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
         android:layout_below="@+id/colorPickerLayout"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <Button
+        android:id="@+id/addedCancel"
+        style="@style/mapButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/cancel"
+        android:layout_below="@+id/colorPickerLayout"
+         />
 </RelativeLayout>
