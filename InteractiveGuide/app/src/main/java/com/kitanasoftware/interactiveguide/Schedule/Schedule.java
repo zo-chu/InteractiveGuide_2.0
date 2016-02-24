@@ -4,12 +4,10 @@ package com.kitanasoftware.interactiveguide.Schedule;
  * Created by dasha on 23/02/16.
  */
 public class Schedule {
-    private int id;
     private String time;
     private String description;
 
-    public Schedule(int id, String time, String description) {
-        this.id = id;
+    public Schedule(String time, String description) {
         this.time = time;
         this.description = description;
     }
@@ -30,11 +28,4 @@ public class Schedule {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

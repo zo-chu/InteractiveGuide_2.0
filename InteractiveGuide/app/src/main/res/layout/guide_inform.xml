@@ -34,7 +34,7 @@
 
 
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -88,14 +88,14 @@
     </RelativeLayout>
 </android.support.v7.widget.CardView>
 
-<ImageView
-android:layout_width="150dp"
-android:layout_height="160dp"
-android:id="@+id/ivPhoto"
-android:background="@drawable/guide_information_portrait"
-android:layout_alignParentLeft="true"
-android:layout_alignParentStart="true"
-android:layout_marginTop="30dp"/>
+<!--<ImageView-->
+<!--android:layout_width="150dp"-->
+<!--android:layout_height="160dp"-->
+<!--android:id="@+id/ivPhoto"-->
+<!--android:background="@drawable/guide_information_portrait"-->
+<!--android:layout_alignParentLeft="true"-->
+<!--android:layout_alignParentStart="true"-->
+<!--android:layout_marginTop="30dp"/>-->
 
 
 
