@@ -1,13 +1,22 @@
 package com.kitanasoftware.interactiveguide.map;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
 /**
  * Created by Chudo on 26.01.2016.
  */
-public class Geopoint {
+public class Geopoint  implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
     String type;
     int color;
     double[] coordinates;
+    JSONObject jsonObject;
 
     public Geopoint(String name, String type, int color, double[] coordinates) {
         this.name = name;
@@ -47,4 +56,20 @@ public class Geopoint {
     public void setCoordinates(double[] coordinates) {
         this.coordinates = coordinates;
     }
+
+
+    public JSONObject createJSON(){
+        Gson gson = new Gson();
+        try {
+            jsonObject = new JSONObject(gson.toJson(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+
+
+
 }

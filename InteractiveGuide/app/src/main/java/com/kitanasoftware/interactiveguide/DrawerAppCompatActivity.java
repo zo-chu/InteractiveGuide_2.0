@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.kitanasoftware.interactiveguide.information.InformatoonScreen_9;
 import com.kitanasoftware.interactiveguide.map.MapScreen_5;
+import com.kitanasoftware.interactiveguide.notification.NotificationScreen_7;
 
 /**
  * Created by Chudo on 23.02.2016.

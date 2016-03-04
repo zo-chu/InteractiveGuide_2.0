@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.kitanasoftware.interactiveguide.information.InformatoonScreen_9;
 import com.kitanasoftware.interactiveguide.map.MapScreen_5;
+import com.kitanasoftware.interactiveguide.notification.NotificationScreen_7;
 
 public class  MainScreen_4 extends AppCompatActivity {
 

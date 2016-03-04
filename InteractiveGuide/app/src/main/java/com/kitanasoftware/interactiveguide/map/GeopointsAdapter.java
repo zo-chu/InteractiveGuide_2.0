@@ -53,11 +53,9 @@ public class GeopointsAdapter extends BaseAdapter {
 
         TextView geoName = (TextView) one_geo_layout.findViewById(R.id.name);
         geoName.setText(geopoints.get(position).getName());
-//        geoName.setTextColor(Color.);
 
         TextView geoType = (TextView) one_geo_layout.findViewById(R.id.type);
         geoType.setText(geopoints.get(position).getType());
-//        geoType.setTextColor(Color.green(R.color.mainColor));
 
         ImageView geoColor = (ImageView) one_geo_layout.findViewById(R.id.color);
         geoColor.setImageResource(geopoints.get(position).getColor());

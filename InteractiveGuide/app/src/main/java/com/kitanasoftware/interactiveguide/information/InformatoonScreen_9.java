@@ -57,8 +57,9 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        workWithDb.addInformation("REd","908","Frnce","do it","kitana");
         informList = workWithDb.getInformList();
-        //downloadFromParse();
+//        downloadFromParse();
 
         adapter = new InformationAdapter(getApplicationContext(), informList);
         listView = (ListView) findViewById(R.id.lvInform);
@@ -97,9 +98,10 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
                             public void done(byte[] bytes, ParseException e) {
                                 bitPhoto = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 savePhoto();
-                                workWithDb.addInformation(guideName, guidePhone, tour, goal,company);
+                                workWithDb.addInformation(guideName, guidePhone, tour, goal, company);
                                 informList = workWithDb.getInformList();
                                 adapter = new InformationAdapter(getApplicationContext(), informList);
+                                listView.setAdapter(adapter);
                                 invalidateLv();
                             }
                         });

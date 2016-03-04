@@ -49,7 +49,7 @@ public class AddingDialog extends DialogFragment {
 
         //Color list
         Gallery listOfColors = (Gallery) view.findViewById(R.id.listOfColors);
-        final ArrayList<Integer> colors = GeopointsData.getInstance().getColors();
+        final ArrayList<Integer> colors = GeopointsData.getInstance().getCOLORS();
         ColorAdapter colorsAdapter = new ColorAdapter(colors, getActivity().getApplicationContext());
         listOfColors.setAdapter(colorsAdapter);
 
