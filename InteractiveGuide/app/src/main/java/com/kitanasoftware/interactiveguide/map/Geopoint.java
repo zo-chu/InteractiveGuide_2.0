@@ -4,10 +4,10 @@ package com.kitanasoftware.interactiveguide.map;
  * Created by Chudo on 26.01.2016.
  */
 public class Geopoint {
-    String name;
-    String type;
-    int color;
-    double[] coordinates;
+    private String name;
+    private String type;
+    private int color;
+    private double[] coordinates;
 
     public Geopoint(String name, String type, int color, double[] coordinates) {
         this.name = name;
