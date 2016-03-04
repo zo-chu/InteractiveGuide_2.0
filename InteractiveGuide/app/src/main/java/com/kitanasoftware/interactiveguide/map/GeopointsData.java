@@ -12,7 +12,7 @@ import java.util.Map;
 public class GeopointsData {
     private ArrayList<Geopoint> geopoints;
     private Map<String,Integer> typesOfGeopoints;
-    private ArrayList<Integer> colors;
+    private final ArrayList<Integer> COLORS;
     private static GeopointsData geopointsInstance = new GeopointsData();
 
     public static GeopointsData getInstance() {
@@ -35,9 +35,10 @@ public class GeopointsData {
         this.typesOfGeopoints = typesOfGeopoints;
     }
 
-    public ArrayList<Integer> getColors() {
-        return colors;
+    public ArrayList<Integer> getCOLORS() {
+        return COLORS;
     }
+
 
     private GeopointsData() {
 
@@ -54,19 +55,19 @@ public class GeopointsData {
         typesOfGeopoints = new HashMap<String,Integer>();
         typesOfGeopoints.put("guide", R.drawable.point_type1);
         typesOfGeopoints.put("bathroom", R.drawable.point_type2);
-        typesOfGeopoints.put("cool place",R.drawable.point_type3);
+        typesOfGeopoints.put("cool place", R.drawable.point_type3);
         typesOfGeopoints.put("eating point", R.drawable.point_type6);
         typesOfGeopoints.put("meeting point", R.drawable.point_type5);
 
-        colors = new ArrayList<Integer>();
-        colors.add(R.drawable.point_type1);
-        colors.add(R.drawable.point_type2);
-        colors.add(R.drawable.point_type3);
-        colors.add(R.drawable.point_type4);
-        colors.add(R.drawable.point_type5);
-        colors.add(R.drawable.point_type6);
-        colors.add(R.drawable.point_type7);
-        colors.add(R.drawable.point_type8);
+        COLORS = new ArrayList<Integer>();
+        COLORS.add(R.drawable.point_type1);
+        COLORS.add(R.drawable.point_type2);
+        COLORS.add(R.drawable.point_type3);
+        COLORS.add(R.drawable.point_type4);
+        COLORS.add(R.drawable.point_type5);
+        COLORS.add(R.drawable.point_type6);
+        COLORS.add(R.drawable.point_type7);
+        COLORS.add(R.drawable.point_type8);
 
 
     }
