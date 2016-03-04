@@ -12,6 +12,7 @@ public class IntaractiveGuide extends Application {
 
     private static final String CLIENT_KEY = "zaHbAAANuOADxVOKKIjT3YRKzgdANrBySN9Zb4jh";
 
+
     @Override
     public void onCreate() {
         super.onCreate();
