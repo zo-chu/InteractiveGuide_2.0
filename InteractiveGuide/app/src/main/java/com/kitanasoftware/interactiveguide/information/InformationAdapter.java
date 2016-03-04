@@ -99,8 +99,8 @@ public class InformationAdapter extends ArrayAdapter<Information> {
                     TextView tvFullName = (TextView) gideView.findViewById(R.id.tvFullName);
                     TextView tvPhone = (TextView) gideView.findViewById(R.id.tvPhone);
 
-//                    EditText etFullName = (EditText) gideView.findViewById(R.id.etFullName);
-//                    EditText etPhone = (EditText) gideView.findViewById(R.id.etPhone);
+                    EditText etFullName = (EditText) gideView.findViewById(R.id.etFullName);
+                    EditText etPhone = (EditText) gideView.findViewById(R.id.etPhone);
 
                     ImageView im = (ImageView) gideView.findViewById(R.id.ivPhoto);
 
@@ -113,15 +113,15 @@ public class InformationAdapter extends ArrayAdapter<Information> {
                         tvPhone.setTextColor(Color.BLACK);
                     } else {
                         tvFullName.setVisibility(View.GONE);
-//                        etFullName.setVisibility(View.VISIBLE);
-//                        etFullName.setText(information.getFull_name());
-//                        etFullName.setTextColor(Color.BLACK);
+                       etFullName.setVisibility(View.VISIBLE);
+                        etFullName.setText(information.getFull_name());
+                        etFullName.setTextColor(Color.BLACK);
                         im.setImageBitmap(information.getPhoto());
 
                         tvPhone.setVisibility(View.GONE);
-//                        etPhone.setVisibility(View.VISIBLE);
-//                        etPhone.setText(information.getPhone());
-//                        etPhone.setTextColor(Color.BLACK);
+                        etPhone.setVisibility(View.VISIBLE);
+                        etPhone.setText(information.getPhone());
+                        etPhone.setTextColor(Color.BLACK);
                     }
                 }
                 return gideView;

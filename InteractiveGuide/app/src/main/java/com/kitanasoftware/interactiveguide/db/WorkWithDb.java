@@ -86,7 +86,6 @@ public class WorkWithDb {
     }
 
     private ArrayList<Schedule> getSchedule(){
-        int id;
         String time;
         String description;
         cursor = db.rawQuery("SELECT * FROM schedule", null);
@@ -94,10 +93,9 @@ public class WorkWithDb {
         if (size > 0){
             cursor.moveToFirst();
             for (int i = 0; i < size; i++) {
-                id = cursor.getInt(0);
                 time = cursor.getString(1);
                 description = cursor.getString(1);
-                scheduleList.add(new Schedule(id, time, description));
+                scheduleList.add(new Schedule(time, description));
                 cursor.moveToNext();
             }
         }
@@ -105,8 +103,8 @@ public class WorkWithDb {
         return scheduleList;
     }
 
-    public ArrayList<Geopoint> getGeopoints(){
-        int id; // ! add to Geopoint
+    private ArrayList<Geopoint> getGeopoints(){
+        //int id; // ! add to Geopoint
         String name;
         String type;
         int color;
@@ -118,13 +116,13 @@ public class WorkWithDb {
         if (size > 0){
             cursor.moveToFirst();
             for (int i = 0; i < size; i++) {
-                id = cursor.getInt(0);
+                //id = cursor.getInt(0);
                 name = cursor.getString(1);
                 type = cursor.getString(2);
                 color = cursor.getInt(3);
                 coordinates[0] = cursor.getDouble(4);
                 coordinates[1] = cursor.getDouble(5);
-                //geopointList.add(new Geopoint(id, name, type,color,coordinates));
+                geopointList.add(new Geopoint( name, type,color,coordinates));
                 cursor.moveToNext();
             }
         }
@@ -168,13 +166,13 @@ public class WorkWithDb {
         int index =getGeopoints().size();
         db.execSQL("INSERT INTO geopoints VALUES ("+index+", '" + name + "', '" + type+"', " +
                 color + ", " + coordinates[0] +", " + coordinates[1] +")");
-        //getGeopoints().add(new Geopoint(index, name, type, color, coordinates));
+        getGeopoints().add(new Geopoint( name, type, color, coordinates));
     }
 
     public void addSchedule(String time, String description){
         int index =getSchedule().size();
         db.execSQL("INSERT INTO schedule VALUES ("+ index +", '" + time + "', '" + description + "')");
-        getScheduleList().add(new Schedule(index,time,description));
+        getScheduleList().add(new Schedule(time,description));
     }
 
     public void addInformation(String guideName, String guidePhone, String tour, String goal, String company ){
