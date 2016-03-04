@@ -1,15 +1,18 @@
 package com.kitanasoftware.interactiveguide.Schedule;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by dasha on 23/02/16.
  */
 public class Schedule {
-    private int id;
     private String time;
     private String description;
 
-    public Schedule(int id, String time, String description) {
-        this.id = id;
+    public Schedule(String time, String description) {
         this.time = time;
         this.description = description;
     }
@@ -30,11 +33,14 @@ public class Schedule {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public JSONObject getJSON(){
+        JSONObject jsonObject = null;
+        Gson gson = new Gson();
+        try {
+            jsonObject = new JSONObject(gson.toJson(this));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 }

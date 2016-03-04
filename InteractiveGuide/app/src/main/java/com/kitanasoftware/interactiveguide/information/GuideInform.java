@@ -2,13 +2,20 @@ package com.kitanasoftware.interactiveguide.information;
 
 import android.graphics.Bitmap;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
 /**
  * Created by dasha on 29/01/16.
  */
-public class GuideInform extends Information{
+public class GuideInform extends Information implements Serializable{
     String full_name;
     String phone;
     Bitmap photo;
+
+    private static final long serialVersionUID = 1996156934189183983L;
 
     public GuideInform(InformType type,String full_name, String phone, Bitmap photo) {
         super(type);
@@ -46,4 +53,6 @@ public class GuideInform extends Information{
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
     }
+
+
 }

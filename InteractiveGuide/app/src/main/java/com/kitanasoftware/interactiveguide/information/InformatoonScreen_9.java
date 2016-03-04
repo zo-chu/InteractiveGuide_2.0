@@ -6,12 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,17 +32,6 @@ import java.util.List;
 
 public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
-    EditText etText;
-
-    SharedPreferences sPref;
-
-    final String GUIDE_NAME = "name";
-    final String GUIDE_PHONE = "phone";
-    final String TOUR = "tour";
-    final String GOAL = "goal";
-    final String COMPANY = "company";
-    final String INFORMATION_ID = "id";
-
     String guideName;
     String guidePhone;
     String tour;
@@ -55,9 +42,6 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     ListView listView;
     ArrayList<Information> informList;
 
-    GuideInform guideInform;
-    TourInform tourInform;
-    AdditionalInform additionalInform;
     View edit;
     View save;
 
@@ -73,15 +57,13 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        workWithDb.addInformation("REd","908","Frnce","do it","kitana");
         informList = workWithDb.getInformList();
-        downloadFromParse();
-        //this is done in DrawerAppCompatAc class
-//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-        informList = new ArrayList();
+//        downloadFromParse();
+
         adapter = new InformationAdapter(getApplicationContext(), informList);
         listView = (ListView) findViewById(R.id.lvInform);
+        listView.setAdapter(adapter);
 
     }
 
@@ -92,7 +74,7 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_for_inf, menu);
 
         return true;
     }
@@ -116,9 +98,10 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
                             public void done(byte[] bytes, ParseException e) {
                                 bitPhoto = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 savePhoto();
-                                workWithDb.addInformation(guideName, guidePhone, tour, goal,company);
+                                workWithDb.addInformation(guideName, guidePhone, tour, goal, company);
                                 informList = workWithDb.getInformList();
                                 adapter = new InformationAdapter(getApplicationContext(), informList);
+                                listView.setAdapter(adapter);
                                 invalidateLv();
                             }
                         });
@@ -140,13 +123,13 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
             menu.clear();
         }
         if(isEdit==false){
-            menu.setGroupVisible(R.menu.main, false);
-            getMenuInflater().inflate(R.menu.main, menu);
+            menu.setGroupVisible(R.menu.main_for_inf, false);
+            getMenuInflater().inflate(R.menu.main_for_inf, menu);
 
         }
         else if(isEdit==true) {
-            menu.setGroupVisible(R.menu.edit, false);
-            getMenuInflater().inflate(R.menu.edit, menu);
+            menu.setGroupVisible(R.menu.edit_for_inform, false);
+            getMenuInflater().inflate(R.menu.edit_for_inform, menu);
 
         }
 
@@ -175,6 +158,7 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
                 EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
                 EditText etTour = (EditText) findViewById(R.id.etTour);
                 EditText etGoal = (EditText) findViewById(R.id.etTourGoal);
+
 
                 guideName = etGuideName.getText().toString();
                 guidePhone = etGuidePhone.getText().toString();
