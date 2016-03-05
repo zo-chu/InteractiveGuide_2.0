@@ -105,8 +105,10 @@ public class MyItemizedOverlay extends ItemizedIconOverlay<OverlayItem> {
         Drawable marker = mContext.getResources().getDrawable(
                 markerRes);
         item.setMarker(marker);
-        if (items.get(items.size() - 1).getTitle().equals("NewPoint")) {
-            items.remove(items.size() - 1);
+        if(items.size()!=0){
+            if (items.get(items.size() - 1).getTitle().equals("NewPoint")) {
+                items.remove(items.size() - 1);
+            }
         }
         addItem(item);
         mapView.invalidate();
