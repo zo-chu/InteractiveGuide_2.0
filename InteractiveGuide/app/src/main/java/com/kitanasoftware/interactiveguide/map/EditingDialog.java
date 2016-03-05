@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 
 import com.kitanasoftware.interactiveguide.R;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,10 @@ public class EditingDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        geopoints = GeopointsData.getInstance().getGeopoints();
+        //geopoints = GeopointsData.getInstance().getGeopoints();\
+
+        //from db
+        geopoints= WorkWithDb.getWorkWithDb().getGeopointList();
         mapView = (HybridMap) getActivity().findViewById(R.id.hybridMap);
 
         adapter = new GeopointsAdapter(getActivity(), geopoints);

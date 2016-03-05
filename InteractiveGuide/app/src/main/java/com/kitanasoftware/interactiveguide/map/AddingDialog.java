@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.kitanasoftware.interactiveguide.R;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,13 @@ public class AddingDialog extends DialogFragment {
     private Map<String, Integer> typesGeoMap;
     private  EditText editgeoName;
     private  EditText editgeoType;
+    private WorkWithDb workWithDb;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         coordinates = getArguments().getDoubleArray("coordinates");
+        //get instance for work with db
+        workWithDb=WorkWithDb.getWorkWithDb();
         return getAddingDialog();
     }
 
@@ -135,15 +139,28 @@ public class AddingDialog extends DialogFragment {
                             pickedColor,
                             new double[]{coordinates[0], coordinates[1]}
                     );
-                    ArrayList<Geopoint> arrGeo = GeopointsData.getInstance().getGeopoints();
+                    System.out.println( " coor" +coordinates[0]+ " coor " +coordinates[1] );
+                    //ArrayList<Geopoint> arrGeo = GeopointsData.getInstance().getGeopoints();
+
+                    //get All geopoints from db
+                    ArrayList<Geopoint> arrGeo = workWithDb.getGeopointList();
+
                     if (MapScreen_5.editingMode) {
-                        arrGeo.set(getArguments().getInt("position"), newGeopoint);
+                        //arrGeo.set(getArguments().getInt("position"), newGeopoint);
+                        //arrGeo.set(getArguments().getInt("position"),newGeopoint);
+
+                        //update in db and in singlton- Work with db
+                        WorkWithDb.getWorkWithDb().updateGeopointByIndex(getArguments().getInt("position"),geoName,
+                                geoType, pickedColor, new double[]{coordinates[0], coordinates[1]});
 
                     } else {
-                        arrGeo.add(newGeopoint);
+                        //arrGeo.add(newGeopoint);
+                        WorkWithDb.getWorkWithDb().addGeopiont(geoName,
+                                geoType, pickedColor, new double[]{coordinates[0], coordinates[1]});
+
                     }
 
-                    GeopointsData.getInstance().setGeopoints(arrGeo);
+                    //GeopointsData.getInstance().setGeopoints(arrGeo);
 
                     typesGeoMap = GeopointsData.getInstance().getTypesOfGeopoints();
                     typesGeoMap.put(geoType, pickedColor);
@@ -155,6 +172,7 @@ public class AddingDialog extends DialogFragment {
 
                     dismiss();
                     Toast toast = Toast.makeText(getActivity(), "Geopoint added", Toast.LENGTH_SHORT);
+                    System.out.println(workWithDb.getGeopointList().get(0).getName() + " coord " + workWithDb.getGeopointList().get(0).getCoordinates()[0]+ "  p "+ workWithDb.getGeopointList().get(0).getCoordinates()[1]);
                     toast.show();
 
                 }

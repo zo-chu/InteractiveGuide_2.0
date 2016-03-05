@@ -184,11 +184,6 @@ public class WorkWithDb {
 
     private HashSet<String> getClientIp(){
         String ip;
-
-    private ArrayList<Geopoint> getGeopoints(){
-        //int id; // ! add to Geopoint
-        String name;
-
         cursor = db.rawQuery("SELECT * FROM mygroup", null);
         int size = cursor.getCount();
         if (size > 0){
@@ -216,7 +211,6 @@ public class WorkWithDb {
         if (size > 0){
             cursor.moveToFirst();
             for (int i = 0; i < size; i++) {
-                id = cursor.getInt(0);
                 name = cursor.getString(1);
                 type = cursor.getString(2);
                 color = cursor.getInt(3);
@@ -233,7 +227,7 @@ public class WorkWithDb {
     public void updateGeopointByIndex(int index, String name, String type, int color, double[] coordinates){
         Geopoint geopoint = geopointList.get(index);
         db.execSQL("UPDATE geopoints set name='" + name + "',type='" + type+"',color= " +
-                color + "lan=" + coordinates[0] +", lon=" + coordinates[1] +" WHERE id=" + index + "");
+                color + ", lat=" + coordinates[0] +", lon=" + coordinates[1] +" WHERE id=" + index + " ");
 
         geopoint.setName(name);
         geopoint.setType(type);
@@ -261,6 +255,15 @@ public class WorkWithDb {
                 "guide_phone='" + guidePhone + "', tour='" + tour + "', goal='" + goal + "'");
 
     }
+    public void deleteSchedualByIndex(int index){
+       scheduleList.remove(index);
+        db.execSQL("DELETE FROM schedule WHERE  id=" + index + "");
+    }
+    public void deleteGeopointByIndex(int index){
+        geopointList.remove(index);
+        db.execSQL("DELETE FROM geopoints WHERE id=" + index + "");
+    }
+
 
     public void addGeopiont(String name, String type, int color, double[] coordinates){
         int index =getGeopointList().size();

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.kitanasoftware.interactiveguide.DrawerAppCompatActivity;
 import com.kitanasoftware.interactiveguide.R;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 
 import org.osmdroid.tileprovider.IRegisterReceiver;
 import org.osmdroid.util.GeoPoint;
@@ -161,7 +162,9 @@ public class MapScreen_5 extends DrawerAppCompatActivity implements IRegisterRec
 
     public void createOverlay() {
         items = new ArrayList<>();
-        ArrayList<Geopoint> geopoints = GeopointsData.getInstance().getGeopoints();
+        //ArrayList<Geopoint> geopoints = GeopointsData.getInstance().getGeopoints();
+        //get from db
+        ArrayList<Geopoint> geopoints = WorkWithDb.getWorkWithDb().getGeopointList();
 
         for (int i = 0; i < geopoints.size(); i++) {
             OverlayItem newItem = new OverlayItem(geopoints.get(i).getName(),
@@ -185,9 +188,12 @@ public class MapScreen_5 extends DrawerAppCompatActivity implements IRegisterRec
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        ArrayList<Geopoint> geopoints = GeopointsData.getInstance().getGeopoints();
-                        geopoints.remove(editedGeoPosition);
-                        GeopointsData.getInstance().setGeopoints(geopoints);
+//                        ArrayList<Geopoint> geopoints = GeopointsData.getInstance().getGeopoints();
+//                        geopoints.remove(editedGeoPosition);
+//                        GeopointsData.getInstance().setGeopoints(geopoints);
+
+                        //from db
+                        WorkWithDb.getWorkWithDb().deleteGeopointByIndex(editedGeoPosition);
                         createOverlay();
                         editedGeo = null;
                         editedGeoPosition = 0;
