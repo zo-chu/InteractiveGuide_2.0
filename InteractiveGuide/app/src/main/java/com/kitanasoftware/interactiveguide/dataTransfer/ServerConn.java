@@ -1,7 +1,9 @@
 package com.kitanasoftware.interactiveguide.dataTransfer;
 
 import android.app.Service;
+import android.content.ContentResolver;
 import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.text.format.Formatter;
 
 import com.kitanasoftware.interactiveguide.db.WorkWithDb;
@@ -26,6 +28,7 @@ public class ServerConn extends Thread {
             serverConn = new ServerSocket(5002);
             workWithDb=WorkWithDb.getWorkWithDb();
             System.out.println("Server Waiting for client on port 5002");
+
 
             // IP of server put to client
             Socket connectionSocket;

@@ -56,10 +56,11 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
+
         workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
-        workWithDb.addInformation("REd","908","Frnce","do it","kitana");
+        workWithDb.addInformation("Enter your name","Enter your phone "," Name of tour "," Goal for today ","KitanaSoft");
         informList = workWithDb.getInformList();
-//        downloadFromParse();
+
 
         adapter = new InformationAdapter(getApplicationContext(), informList);
         listView = (ListView) findViewById(R.id.lvInform);
