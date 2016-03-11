@@ -175,8 +175,8 @@ public class WorkWithDb {
         if (size > 0){
             cursor.moveToFirst();
             for (int i = 0; i < size; i++) {
-                time = cursor.getString(0);
-                description = cursor.getString(1);
+                time = cursor.getString(1);
+                description = cursor.getString(2);
                 scheduleList.add(new Schedule(time, description));
                 cursor.moveToNext();
             }
@@ -304,6 +304,13 @@ public class WorkWithDb {
         int index =getScheduleList().size();
         getScheduleList().add(new Schedule(time, description));
         db.execSQL("INSERT INTO schedule VALUES (" + index + ", '" + time + "', '" + description + "')");
+
+    }
+
+    public void addNotification(String sentTo, String text){
+        int index =getNotificationList().size();
+        getScheduleList().add(new Schedule(sentTo, text));
+        db.execSQL("INSERT INTO notifications VALUES (" + index + ", '" + sentTo + "', '" + text + "')");
 
     }
 
