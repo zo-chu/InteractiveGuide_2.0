@@ -1,5 +1,6 @@
 package com.kitanasoftware.interactiveguide.db;
 
+import android.app.Notification;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,7 @@ import com.kitanasoftware.interactiveguide.information.GuideInform;
 import com.kitanasoftware.interactiveguide.information.Information;
 import com.kitanasoftware.interactiveguide.information.TourInform;
 import com.kitanasoftware.interactiveguide.map.Geopoint;
+import com.kitanasoftware.interactiveguide.notification.MyNotification;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +39,7 @@ public class WorkWithDb {
     private ArrayList<Information> informList;
     private ArrayList<Schedule> scheduleList;
     private ArrayList<Geopoint> geopointList;
+    private ArrayList<MyNotification> notificationList;
 
     private HashSet<String> ipList;
 
@@ -84,6 +87,13 @@ public class WorkWithDb {
             getInformation();
         }
         return informList;
+    }
+
+    public ArrayList<MyNotification> getNotificationList() {
+        if(notificationList.size() == 0 ){
+            getNotifications();
+        }
+        return notificationList;
     }
 
     public HashSet<String> getIpList() {
@@ -165,7 +175,7 @@ public class WorkWithDb {
         if (size > 0){
             cursor.moveToFirst();
             for (int i = 0; i < size; i++) {
-                time = cursor.getString(1);
+                time = cursor.getString(0);
                 description = cursor.getString(1);
                 scheduleList.add(new Schedule(time, description));
                 cursor.moveToNext();
@@ -173,6 +183,23 @@ public class WorkWithDb {
         }
 
         return scheduleList;
+    }
+    private ArrayList<MyNotification> getNotifications(){
+         String sentTo;
+        String text;
+        cursor = db.rawQuery("SELECT * FROM notifications", null);
+        int size = cursor.getCount();
+        if (size > 0){
+            cursor.moveToFirst();
+            for (int i = 0; i < size; i++) {
+                sentTo = cursor.getString(0);
+                text = cursor.getString(1);
+                notificationList.add(new MyNotification(sentTo, text));
+                cursor.moveToNext();
+            }
+        }
+
+        return notificationList;
     }
 
     public JSONObject getJsonObjectInform() {

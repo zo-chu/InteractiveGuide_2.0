@@ -26,7 +26,7 @@ public class InformationAdapter extends ArrayAdapter<Information> {
     }
 
     private ArrayList list;
-    int type;
+    private int type;
 
     public InformationAdapter(Context context, ArrayList<Information> informations) {
         super(context, 0, informations);

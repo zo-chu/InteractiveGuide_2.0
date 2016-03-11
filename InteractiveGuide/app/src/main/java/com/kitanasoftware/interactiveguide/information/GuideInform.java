@@ -11,9 +11,9 @@ import java.io.Serializable;
  * Created by dasha on 29/01/16.
  */
 public class GuideInform extends Information implements Serializable{
-    String full_name;
-    String phone;
-    Bitmap photo;
+    private String full_name;
+    private String phone;
+    private Bitmap photo;
 
     private static final long serialVersionUID = 1996156934189183983L;
 

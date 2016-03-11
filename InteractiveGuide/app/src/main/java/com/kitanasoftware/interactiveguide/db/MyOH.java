@@ -21,6 +21,7 @@ public class MyOH extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE geopoints (id INT, name TEXT NOT NULL, type TEXT NOT NULL, color INT, lat DOUBLE, lon DOUBLE)");
         db.execSQL("CREATE TABLE information (guide_name TEXT NOT NULL, guide_phone TEXT NOT NULL ,tour TEXT NOT NULL, goal TEXT NOT NULL, company TEXT NOT NULL )");
         db.execSQL("CREATE TABLE mygroup (id TEXT NOT NULL, ip TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE notifications (sentTo TEXT NOT NULL, text TEXT NOT NULL)");
 
     }
 
