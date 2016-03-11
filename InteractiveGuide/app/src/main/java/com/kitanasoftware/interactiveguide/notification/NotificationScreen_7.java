@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,8 +20,8 @@ import com.kitanasoftware.interactiveguide.R;
 import org.osmdroid.util.GeoPoint;
 
 public class NotificationScreen_7 extends DrawerAppCompatActivity {
-    EditText thephoneNumber;
-    EditText theMessage;
+    private EditText telephoneNumber;
+    private EditText theMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#d7afd2"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
-        thephoneNumber = (EditText) findViewById(R.id.clientPhoneNumber);
+        telephoneNumber = (EditText) findViewById(R.id.clientPhoneNumber);
         theMessage = (EditText) findViewById(R.id.textMess);
 
     }
@@ -42,7 +41,7 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
     }
 
     public void sendMessage(View v) {
-        String phoneNo = thephoneNumber.getText().toString();
+        String phoneNo = telephoneNumber.getText().toString();
         String message = theMessage.getText().toString();
         if ((phoneNo.length() > 0) & (message.length() > 0)) {
             sendSMS(phoneNo, message);
@@ -55,13 +54,13 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
 
     private void sendSMS(String phoneNumber, String message) {
 
-
         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        sendIntent.putExtra("sms_body", message + "My location is ["+getLocation()+"]");
+        sendIntent.putExtra("sms_body", message + "My location is [" + getLocation() + "]");
         sendIntent.putExtra("address", phoneNumber);
         sendIntent.setType("vnd.android-dir/mms-sms");
         startActivity(sendIntent);
     }
+
     public GeoPoint getLocation() {
         GeoPoint myLocation;
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -74,40 +73,15 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
                         android.Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
 
-            return myLocation = new GeoPoint(0,0);
+            return myLocation = new GeoPoint(0, 0);
+
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
-
-            myLocation = new GeoPoint(location.getLatitude(),location.getLongitude());
+            myLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        } else {
+            myLocation = new GeoPoint(0, 0);
         }
-        else{
-            myLocation = new GeoPoint(0,0);
-        }
-//        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-////                mapView.getController().animateTo(myLocation);
-//
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//
-//            }
-//        });
-
-
         return myLocation;
     }
 }

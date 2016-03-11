@@ -4,7 +4,7 @@
     <item android:id="@+id/route" android:title="route" android:icon="@drawable/route"
         app:showAsAction="always">
     </item>
-    <item android:id="@+id/allPoints" android:title="allPoints" android:icon="@drawable/empty_point"
+    <item android:id="@+id/allPoints" android:title="allPoints" android:icon="@drawable/circle"
         app:showAsAction="always"></item>
 
 </menu>

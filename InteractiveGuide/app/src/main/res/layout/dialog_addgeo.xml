@@ -53,7 +53,6 @@
         android:id="@+id/pickedColor"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@drawable/empty_point_shadow"
         android:layout_below="@+id/editType"
         android:layout_toLeftOf="@+id/addedOk"
         android:layout_toStartOf="@+id/addedOk" />
