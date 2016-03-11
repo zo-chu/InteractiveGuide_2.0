@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Created by dasha on 29/01/16.
  */
 public class TourInform extends Information implements Serializable{
-    String name;
-    String goal;
+    private String name;
+    private String goal;
 
     public TourInform(InformType type, String name, String goal) {
         super(type);
