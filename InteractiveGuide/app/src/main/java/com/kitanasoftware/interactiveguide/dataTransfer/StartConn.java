@@ -12,6 +12,7 @@ public class StartConn extends Service {
     public void onCreate() {
         super.onCreate();
         Toast.makeText(getApplicationContext(), "Service start", Toast.LENGTH_LONG).show();
+
         ServerConn serverConn = new ServerConn();
         serverConn.start();
     }

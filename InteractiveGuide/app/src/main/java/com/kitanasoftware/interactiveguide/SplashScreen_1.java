@@ -1,7 +1,9 @@
 package com.kitanasoftware.interactiveguide;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Formatter;
@@ -27,9 +29,12 @@ public class  SplashScreen_1 extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), StartConn.class);
         startService(intent);
 
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        System.out.println("ip " + ip);
+//        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+//        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+//        System.out.println("ip " + ip);
+
+
+
 
         Thread timerThread = new Thread() {
              public void run() {
