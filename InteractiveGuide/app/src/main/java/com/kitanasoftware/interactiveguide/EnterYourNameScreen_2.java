@@ -20,13 +20,16 @@ public class  EnterYourNameScreen_2 extends AppCompatActivity {
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#127e83"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        WorkWithDb.getWorkWithDb(getApplicationContext());
 
     }
 
     public void OKclick(View view) {
-        WorkWithDb.getWorkWithDb(getApplicationContext());
+
         Intent intent1 = new Intent(getApplicationContext(), StartConn.class);
         startService(intent1);
+        WorkWithDb.getWorkWithDb().addSchedule("11:00", " meeting");
+        WorkWithDb.getWorkWithDb().addSchedule("12:00", " go to ");
 
         Intent intent = new Intent(getApplicationContext(),MainScreen_4.class);
         startActivity(intent);

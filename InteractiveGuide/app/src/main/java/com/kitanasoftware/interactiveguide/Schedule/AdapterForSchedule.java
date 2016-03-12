@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kitanasoftware.interactiveguide.R;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 
 /**
  * Created by metkinskiioleg on 14.02.16.
@@ -53,8 +54,8 @@ public class AdapterForSchedule extends BaseAdapter {
         TextView tvTime = (TextView) r1.findViewById(R.id.textView3);
         TextView tvDestination = (TextView) r1.findViewById(R.id.textView4);
 
-        String time= ScheduleSingleton.getInstance().getArrTime().get(position);
-        String destination = ScheduleSingleton.getInstance().getArrDestination().get(position);
+        String time= WorkWithDb.getWorkWithDb().getScheduleList().get(position).getTime();
+        String destination = WorkWithDb.getWorkWithDb().getScheduleList().get(position).getTime();
 
         tvTime.setText(time);
         tvDestination.setText(destination);
