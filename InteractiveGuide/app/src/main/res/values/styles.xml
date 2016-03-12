@@ -47,4 +47,9 @@
     </style>
 
 
+    <style name="mainViewWithText">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/mainColor</item>
+    </style>
 </resources>

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cv"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/tvCompanyName1"
-         />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvCompanyName1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/mainViewWithText"/>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

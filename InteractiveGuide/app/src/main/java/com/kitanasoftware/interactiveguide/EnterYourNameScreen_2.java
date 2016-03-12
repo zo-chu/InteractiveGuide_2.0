@@ -20,7 +20,7 @@ public class  EnterYourNameScreen_2 extends AppCompatActivity {
     }
 
     public void OKclick(View view) {
-        Intent intent = new Intent(getApplicationContext(),Menu_3.class);
+        Intent intent = new Intent(getApplicationContext(),MainScreen_4.class);
         startActivity(intent);
     }
 }

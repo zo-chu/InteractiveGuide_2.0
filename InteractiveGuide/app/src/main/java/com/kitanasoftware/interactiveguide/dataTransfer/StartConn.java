@@ -11,7 +11,7 @@ public class StartConn extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(getApplicationContext(), "Service start", Toast.LENGTH_LONG).show();
+        System.out.println("service started");
 
         ServerConn serverConn = new ServerConn();
         serverConn.start();

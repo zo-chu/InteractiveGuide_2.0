@@ -33,6 +33,7 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
         telephoneNumber = (EditText) findViewById(R.id.clientPhoneNumber);
         theMessage = (EditText) findViewById(R.id.textMess);
 
+
     }
 
     @Override
@@ -55,7 +56,7 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
     private void sendSMS(String phoneNumber, String message) {
 
         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        sendIntent.putExtra("sms_body", message + "My location is [" + getLocation() + "]");
+        sendIntent.putExtra("sms_body", message + " My location is [" + getLocation() + "]");
         sendIntent.putExtra("address", phoneNumber);
         sendIntent.setType("vnd.android-dir/mms-sms");
         startActivity(sendIntent);
