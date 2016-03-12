@@ -2,27 +2,40 @@ package com.kitanasoftware.interactiveguide.dataTransfer;
 
 import android.app.Service;
 import android.content.ContentResolver;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.format.Formatter;
+import android.view.View;
 
 import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /**
  * Created by dasha on 24/02/16.
  */
 public class ServerConn extends Thread {
-    public void run() {
 
-        ServerSocket serverConn;
-        String clientIp;
-        WorkWithDb workWithDb;
+    private boolean status_sending = false;
+    ServerSocket serverConn;
+    String clientIp;
+    WorkWithDb workWithDb;
+    ArrayList<String> devices = new ArrayList<String>();
+    private int VOICE_STREAM_PORT = 50005;
+
+    public void run() {
 
         try {
             serverConn = new ServerSocket(5002);
@@ -53,5 +66,7 @@ public class ServerConn extends Thread {
             e.printStackTrace();
         }
 
+
     }
+
 }
