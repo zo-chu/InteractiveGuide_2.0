@@ -116,6 +116,7 @@ public class WorkWithDb {
         informList = new ArrayList<>();
         scheduleList = new ArrayList<>();
         geopointList = new ArrayList<>();
+        notificationList = new ArrayList<>();
         ipList = new HashSet<>();
         jsonObjectInform = new JSONObject();
         jsonArrayGeo= new JSONArray();
@@ -186,14 +187,14 @@ public class WorkWithDb {
     }
     private ArrayList<MyNotification> getNotifications(){
          String sentTo;
-        String text;
+         String text;
         cursor = db.rawQuery("SELECT * FROM notifications", null);
         int size = cursor.getCount();
         if (size > 0){
             cursor.moveToFirst();
             for (int i = 0; i < size; i++) {
-                sentTo = cursor.getString(0);
-                text = cursor.getString(1);
+                sentTo = cursor.getString(1);
+                text = cursor.getString(2);
                 notificationList.add(new MyNotification(sentTo, text));
                 cursor.moveToNext();
             }
