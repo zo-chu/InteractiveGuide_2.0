@@ -315,7 +315,7 @@ public class WorkWithDb {
 
     }
 
-    public void addInformation(String guideName, String guidePhone, String tour, String goal, String company ){
+    private void addInformation(String guideName, String guidePhone, String tour, String goal, String company ){
         int inf_id = getInformList().size();
         db.execSQL("INSERT INTO information VALUES ('" + guideName + "', '" + guidePhone + "', '" + tour + "','" + goal + "','" + company + "')");
     }
