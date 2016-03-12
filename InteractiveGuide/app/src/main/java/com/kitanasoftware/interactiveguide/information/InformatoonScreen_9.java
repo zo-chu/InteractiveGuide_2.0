@@ -57,7 +57,7 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
-        informList = workWithDb.getInformList();
+        informList = WorkWithDb.getWorkWithDb().getInformList();
 
 
         adapter = new InformationAdapter(getApplicationContext(), informList);

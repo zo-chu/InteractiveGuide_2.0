@@ -26,8 +26,9 @@ public class  EnterYourNameScreen_2 extends AppCompatActivity {
 
     public void OKclick(View view) {
 
-        Intent intent1 = new Intent(getApplicationContext(), StartConn.class);
-        startService(intent1);
+//        Intent intent1 = new Intent(getApplicationContext(), StartConn.class);
+//        startService(intent1);
+        WorkWithDb.getWorkWithDb(getApplicationContext());
         WorkWithDb.getWorkWithDb().addSchedule("11:00", " meeting");
         WorkWithDb.getWorkWithDb().addSchedule("12:00", " go to ");
 

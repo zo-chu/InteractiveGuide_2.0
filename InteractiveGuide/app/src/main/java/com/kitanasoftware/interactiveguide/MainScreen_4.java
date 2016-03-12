@@ -5,9 +5,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.kitanasoftware.interactiveguide.dataTransfer.StartConn;
 import com.kitanasoftware.interactiveguide.information.InformatoonScreen_9;
+import com.kitanasoftware.interactiveguide.map.EditingDialog;
 import com.kitanasoftware.interactiveguide.map.MapScreen_5;
 import com.kitanasoftware.interactiveguide.notification.NotificationScreen_7;
 
@@ -48,5 +52,19 @@ public class  MainScreen_4 extends AppCompatActivity {
     public void INFORMATIIONclick(View view) {
         intent = new Intent(getApplicationContext(),InformatoonScreen_9.class);
         startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent1 = new Intent(getApplicationContext(), StartConn.class);
+        startService(intent1);
+
+        return super.onOptionsItemSelected(item);
     }
 }
