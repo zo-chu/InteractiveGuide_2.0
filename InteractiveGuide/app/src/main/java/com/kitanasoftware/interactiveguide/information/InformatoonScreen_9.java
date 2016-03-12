@@ -56,10 +56,8 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
-
+        WorkWithDb.getWorkWithDb().addInformation("dsd", "sss", "ffff", "sss", "sss");
         informList = WorkWithDb.getWorkWithDb().getInformList();
-
-
         adapter = new InformationAdapter(getApplicationContext(), informList);
         listView = (ListView) findViewById(R.id.lvInform);
         listView.setAdapter(adapter);
@@ -178,19 +176,19 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     }
 
     public void saveToPhone() {
-        workWithDb = WorkWithDb.getWorkWithDb(getApplicationContext());
+        workWithDb = WorkWithDb.getWorkWithDb();
         workWithDb.updateInformationByIndex(guideName, guidePhone, tour, goal);
     }
 
-    public void saveToParse() {
-        ParseObject po = ParseObject.createWithoutData("Information", "Z9alPJeIal");//id put!!!
-        //po.put("guide_photo", parseFile);
-        po.put("guide_full_name", guideName);
-        po.put("guide_phone", guidePhone);
-        po.put("tour_inform_name", tour);
-        po.put("tour_inform_goal", goal);
-        po.saveInBackground();
-    }
+//    public void saveToParse() {
+//        ParseObject po = ParseObject.createWithoutData("Information", "Z9alPJeIal");//id put!!!
+//        //po.put("guide_photo", parseFile);
+//        po.put("guide_full_name", guideName);
+//        po.put("guide_phone", guidePhone);
+//        po.put("tour_inform_name", tour);
+//        po.put("tour_inform_goal", goal);
+//        po.saveInBackground();
+//    }
 
     public void invalidateLv() {
         adapter.setList(informList);
