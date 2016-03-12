@@ -12,7 +12,6 @@ public class    BroadCastScreen_6 extends DrawerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#f8bfd8"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
     }
