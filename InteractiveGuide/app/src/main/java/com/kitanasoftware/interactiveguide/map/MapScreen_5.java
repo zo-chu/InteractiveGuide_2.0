@@ -232,6 +232,9 @@ public class MapScreen_5 extends DrawerAppCompatActivity implements IRegisterRec
             public void onLocationChanged(Location location) {
 //                mapView.getController().animateTo(myLocation);
                 mapView.center(myLocation.getLatitude(), myLocation.getLongitude());
+                WorkWithDb.getWorkWithDb().updateGeopointByIndex(0, "Guide", "Guide",
+                        GeopointsData.getInstance().getCOLORS().get(0),
+                        new double[]{myLocation.getLatitude(), myLocation.getLongitude()});
             }
 
             @Override

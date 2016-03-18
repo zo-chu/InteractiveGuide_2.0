@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.kitanasoftware.interactiveguide.map.GeopointsData;
+
 /**
  * Created by dasha on 19/02/16.
  */
@@ -22,7 +24,10 @@ public class MyOH extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE information (guide_name TEXT NOT NULL, guide_phone TEXT NOT NULL ,tour TEXT NOT NULL, goal TEXT NOT NULL, company TEXT NOT NULL )");
         db.execSQL("CREATE TABLE mygroup (id TEXT NOT NULL, ip TEXT NOT NULL)");
         db.execSQL("CREATE TABLE notifications (id INT,sentTo TEXT NOT NULL, text TEXT NOT NULL)");
-        //db.execSQL("INSERT INTO information VALUES ('Enter guide name', ' Enter guide phone', 'Enter tour name',' Enter goal ','KitanaSoft')");
+
+        db.execSQL("INSERT INTO geopoints VALUES ( 0, 'Guide', 'Guide', " +
+                GeopointsData.getInstance().getCOLORS().get(0) + ", " + 0 + ", " + 0 + ")");
+
     }
 
     @Override
