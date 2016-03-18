@@ -23,6 +23,10 @@ public class MyOH extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE mygroup (id TEXT NOT NULL, ip TEXT NOT NULL)");
         db.execSQL("CREATE TABLE notifications (id INT,sentTo TEXT NOT NULL, text TEXT NOT NULL)");
         db.execSQL("INSERT INTO information VALUES ('Enter guide name', ' Enter guide phone', 'Enter tour name',' Enter goal ','KitanaSoft')");
+
+        db.execSQL("INSERT INTO schedule VALUES (0,'11:00',' meet near bus')");
+        db.execSQL("INSERT INTO schedule VALUES (1,'12:00','go to museum')");
+        db.execSQL("INSERT INTO schedule VALUES (2,'13:30',' meeting ')");
     }
 
     @Override

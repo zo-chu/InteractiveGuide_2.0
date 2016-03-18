@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.kitanasoftware.interactiveguide.dataTransfer.SendIp;
 import com.kitanasoftware.interactiveguide.dataTransfer.StartConn;
 import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 
@@ -28,8 +29,8 @@ public class  EnterYourNameScreen_2 extends AppCompatActivity {
 
         Intent intent1 = new Intent(getApplicationContext(), StartConn.class);
         startService(intent1);
-        WorkWithDb.getWorkWithDb().addSchedule("11:00", " meeting");
-        WorkWithDb.getWorkWithDb().addSchedule("12:00", " go to ");
+        SendIp sendIp = new SendIp();
+        sendIp.start();
 
         Intent intent = new Intent(getApplicationContext(),MainScreen_4.class);
         startActivity(intent);

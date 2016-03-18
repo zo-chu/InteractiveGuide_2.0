@@ -6,14 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.kitanasoftware.interactiveguide.Schedule.Schedule;
-import com.kitanasoftware.interactiveguide.information.AdditionalInform;
-import com.kitanasoftware.interactiveguide.information.GuideInform;
-import com.kitanasoftware.interactiveguide.information.Information;
-import com.kitanasoftware.interactiveguide.information.TourInform;
 import com.kitanasoftware.interactiveguide.map.Geopoint;
 import com.kitanasoftware.interactiveguide.notification.MyNotification;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -35,8 +32,7 @@ public class WorkWithDb {
     //4. put JASONObject to OutPutStream from Serv
     //5. get from Client mes about "getdb"
     //6. set JASON
-
-    private ArrayList<Information> informList;
+    private ArrayList<String> informList;
     private ArrayList<Schedule> scheduleList;
     private ArrayList<Geopoint> geopointList;
     private ArrayList<MyNotification> notificationList;
@@ -51,7 +47,8 @@ public class WorkWithDb {
 
 
     public JSONArray getJsonArrayGeo() {
-        for (Geopoint g: getGeopointList()) {
+        if(jsonArrayGeo.length()==0) {
+            for (Geopoint g : getGeopointList()) {
                 try {
                     jsonArrayGeo.put(g.createJSON());
 
@@ -59,16 +56,19 @@ public class WorkWithDb {
                     e.printStackTrace();
                 }
             }
+        }
 
         return jsonArrayGeo;
     }
 
     public JSONArray getJsonArraySchedule() {
-        for (Schedule s: getScheduleList()) {
-            try {
-                jsonArraySchedule.put(s.getJSON());
-            } catch (Exception e) {
-                e.printStackTrace();
+        if(jsonArraySchedule.length()==0){
+            for (Schedule s: getScheduleList()) {
+                try {
+                    jsonArraySchedule.put(s.getJSON());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -82,7 +82,7 @@ public class WorkWithDb {
         return scheduleList;
     }
 
-    public ArrayList<Information> getInformList() {
+    public ArrayList<String> getInformList() {
         if(informList.size() == 0 ){
             getInformation();
         }
@@ -134,39 +134,27 @@ public class WorkWithDb {
         return workWithDb;
     }
 
-    private ArrayList<Information> getInformation()  {
-
-        GuideInform guideInform;
-        TourInform tourInform;
-        AdditionalInform additionalInform;
+    private ArrayList<String> getInformation()  {
 
         cursor = db.rawQuery("SELECT * FROM information", null);
         int size = cursor.getCount();
-        if (size > 0){
-            try {
-                cursor.moveToFirst();
-                jsonObjectInform.put("guide_name", cursor.getString(0));
-                jsonObjectInform.put("guide_phone", cursor.getString(1));
-                guideInform = new GuideInform(Information.InformType.GUIDE,
-                        cursor.getString(0), cursor.getString(1));
-                jsonObjectInform.put("tour", cursor.getString(2));
-                jsonObjectInform.put("goal", cursor.getString(3));
-                tourInform = new TourInform(Information.InformType.TOUR,
-                        cursor.getString(2), cursor.getString(3));
-                jsonObjectInform.put("company", cursor.getString(4));
-                additionalInform = new AdditionalInform(Information.InformType.ADD, cursor.getString(4));
-                informList.add(0, guideInform);
-                informList.add(1, tourInform);
-                informList.add(2, additionalInform);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
+        try {
+            cursor.moveToFirst();
+            informList.add(0, cursor.getString(0));
+            informList.add(1,cursor.getString(1));
+            informList.add(2, cursor.getString(2));
+            informList.add(3, cursor.getString(3));
+            informList.add(4, cursor.getString(4));
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return informList;
 
         }
-        return informList;
-    }
+
 
     private ArrayList<Schedule> getSchedule(){
         String time;
@@ -203,9 +191,17 @@ public class WorkWithDb {
         return notificationList;
     }
 
-    public JSONObject getJsonObjectInform() {
+    public JSONObject getJsonObjectInform()  {
         if(jsonObjectInform.length()==0){
-            getInformation();
+            try {
+                jsonObjectInform.put("guide_name",getInformList().get(0));
+                jsonObjectInform.put("guide_phone",getInformList().get(1));
+                jsonObjectInform.put("tour",getInformList().get(2));
+                jsonObjectInform.put("goal",getInformList().get(3));
+                jsonObjectInform.put("company",getInformList().get(4));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         return jsonObjectInform;
     }
@@ -272,15 +268,26 @@ public class WorkWithDb {
         schedule.setDescription(description);
     }
 
-    public void updateInformationByIndex(String guideName, String guidePhone, String tour, String goal){
+    public void updateInformationByIndex(String guideName, String guidePhone, String tour, String goal,String company){
 
-        ((GuideInform)informList.get(0)).setFull_name(guideName);
-        ((GuideInform)informList.get(0)).setPhone(guidePhone);
-        ((TourInform)informList.get(1)).setName(tour);
-        ((TourInform)informList.get(1)).setGoal(goal);
+        informList.set(0,guideName);
+        informList.set(1, guidePhone);
+        informList.set(2, tour);
+        informList.set(3, goal);
+        informList.set(4, company);
 
         db.execSQL("UPDATE information set guide_name='" + guideName + "', " +
                 "guide_phone='" + guidePhone + "', tour='" + tour + "', goal='" + goal + "'");
+
+    }
+    public void updateInformationByIndex(String guideName, String guidePhone, String tour, String goal) {
+        informList.set(0, guideName);
+        informList.set(1, guidePhone);
+        informList.set(2, tour);
+        informList.set(3, goal);
+
+        db.execSQL("UPDATE information set guide_name='" + guideName + "', " +
+                "guide_phone='" + guidePhone + "', tour='" + tour + "', goal='" + goal + "' WHERE company='"+informList.get(4)+"' ");
 
     }
     public void deleteSchedualByIndex(int index){
@@ -310,14 +317,19 @@ public class WorkWithDb {
 
     public void addNotification(String sentTo, String text){
         int index =getNotificationList().size();
-        getScheduleList().add(new Schedule(sentTo, text));
+        getNotificationList().add(new MyNotification(sentTo, text));
         db.execSQL("INSERT INTO notifications VALUES (" + index + ", '" + sentTo + "', '" + text + "')");
 
     }
 
-    private void addInformation(String guideName, String guidePhone, String tour, String goal, String company ){
-        int inf_id = getInformList().size();
-        db.execSQL("INSERT INTO information VALUES ('" + guideName + "', '" + guidePhone + "', '" + tour + "','" + goal + "','" + company + "')");
+    public void addInformation(String guideName, String guidePhone, String tour, String goal, String company) {
+        informList.add(0,guideName);
+        informList.add(1,guidePhone);
+        informList.add(2,tour);
+        informList.add(3,goal);
+        informList.add(4,company);
+        db.execSQL("INSERT INTO information VALUES (0,'" + guideName + "', '" + guidePhone + "', '" + tour + "','" + goal + "','" + company + "')");
+
     }
     public void addIp(String ip ){
         int inf_id = getIpList().size();

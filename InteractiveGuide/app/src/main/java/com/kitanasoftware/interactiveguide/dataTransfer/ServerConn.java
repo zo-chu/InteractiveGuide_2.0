@@ -34,14 +34,23 @@ public class ServerConn extends Thread {
     WorkWithDb workWithDb;
     ArrayList<String> devices = new ArrayList<String>();
     private int VOICE_STREAM_PORT = 50005;
+    static boolean STATUS=true;
+
+    public static boolean isSTATUS() {
+        return STATUS;
+    }
+
+    public static void setSTATUS(boolean STATUS) {
+        ServerConn.STATUS = STATUS;
+    }
 
     public void run() {
 
         try {
+            STATUS=false;
             serverConn = new ServerSocket(5002);
             workWithDb=WorkWithDb.getWorkWithDb();
             System.out.println("Server Waiting for client on port 5002");
-
 
             // IP of server put to client
             Socket connectionSocket;
@@ -55,7 +64,7 @@ public class ServerConn extends Thread {
                     System.out.println(clientIp);
                     workWithDb.addIp(clientIp);
                     (new ClientHandler(connectionSocket)).start();
-
+                    STATUS=true;
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

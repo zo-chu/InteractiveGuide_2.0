@@ -44,65 +44,65 @@ public class ScheduleScreen_8 extends DrawerAppCompatActivity {
         lvMain = (ListView) findViewById(R.id.listView);
 
         adapterForSchedule = new AdapterForSchedule(getApplicationContext());
-
+        lvMain.setAdapter(adapterForSchedule);
         lvMain.invalidateViews();
-
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-
-        if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
-
-
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Schedule");
-            query.selectKeys(Arrays.asList("Time", "Destination"));
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> list, ParseException e) {
-
-                    arrTime = new ArrayList<String>();
-                    arrDes = new ArrayList<String>();
-                    for (int i = 0; i < list.size(); i++) {
-
-                        arrTime.add(i, list.get(i).getString("Time"));
-                        arrDes.add(i, list.get(i).getString("Destination"));
-
-                    }
-
-                    ScheduleSingleton.getInstance().setArrTime(arrTime);
-                    ScheduleSingleton.getInstance().setArrDestination(arrDes);
-
-                    sp = getSharedPreferences("editor", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("arrTime", arrTime.toString());
-                    editor.putString("arrDestination", arrDes.toString());
-                    editor.commit();
-
-                    lvMain.setAdapter(adapterForSchedule);
-
-                }
-            });
-        } else {
-            try {
-                sp = getSharedPreferences("editor", MODE_PRIVATE);
-                String timeString = sp.getString("arrTime", "");
-                String destinationString = sp.getString("arrDestination", "");
-
-                timeString = timeString.replace("[", "").replace("]", "");
-                destinationString = destinationString.replace("[", "").replace("]", "");
-
-                ScheduleSingleton.getInstance().setArrTime(new ArrayList<>(Arrays.asList(timeString.split("\\s*,\\s*"))));
-                ScheduleSingleton.getInstance().setArrDestination(new ArrayList<>(Arrays.asList(destinationString.split("\\s*,\\s*"))));
-
-                lvMain.setAdapter(adapterForSchedule);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "You need internet to donload schedule", Toast.LENGTH_SHORT).show();
-            }
-
-        }
+//
+//        ConnectivityManager connectivityManager
+//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//
+//        if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
+//
+//
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("Schedule");
+//            query.selectKeys(Arrays.asList("Time", "Destination"));
+//            query.findInBackground(new FindCallback<ParseObject>() {
+//                @Override
+//                public void done(List<ParseObject> list, ParseException e) {
+//
+//                    arrTime = new ArrayList<String>();
+//                    arrDes = new ArrayList<String>();
+//                    for (int i = 0; i < list.size(); i++) {
+//
+//                        arrTime.add(i, list.get(i).getString("Time"));
+//                        arrDes.add(i, list.get(i).getString("Destination"));
+//
+//                    }
+//
+//                    ScheduleSingleton.getInstance().setArrTime(arrTime);
+//                    ScheduleSingleton.getInstance().setArrDestination(arrDes);
+//
+//                    sp = getSharedPreferences("editor", MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sp.edit();
+//                    editor.putString("arrTime", arrTime.toString());
+//                    editor.putString("arrDestination", arrDes.toString());
+//                    editor.commit();
+//
+//                    lvMain.setAdapter(adapterForSchedule);
+//
+//                }
+//            });
+//        } else {
+//            try {
+//                sp = getSharedPreferences("editor", MODE_PRIVATE);
+//                String timeString = sp.getString("arrTime", "");
+//                String destinationString = sp.getString("arrDestination", "");
+//
+//                timeString = timeString.replace("[", "").replace("]", "");
+//                destinationString = destinationString.replace("[", "").replace("]", "");
+//
+//                ScheduleSingleton.getInstance().setArrTime(new ArrayList<>(Arrays.asList(timeString.split("\\s*,\\s*"))));
+//                ScheduleSingleton.getInstance().setArrDestination(new ArrayList<>(Arrays.asList(destinationString.split("\\s*,\\s*"))));
+//
+//                lvMain.setAdapter(adapterForSchedule);
+//
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                Toast.makeText(getApplicationContext(), "You need internet to donload schedule", Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }
     }
 
     @Override
