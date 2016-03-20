@@ -3,7 +3,7 @@ package com.kitanasoftware.interactiveguide.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import com.kitanasoftware.interactiveguide.map.GeopointsData;
 /**
  * Created by dasha on 19/02/16.
  */
@@ -24,6 +24,8 @@ public class MyOH extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE notifications (id INT,sentTo TEXT NOT NULL, text TEXT NOT NULL)");
         db.execSQL("INSERT INTO information VALUES ('Enter guide name', ' Enter guide phone', 'Enter tour name',' Enter goal ','KitanaSoft')");
 
+        db.execSQL("INSERT INTO geopoints VALUES ( 0, 'Guide', 'Guide', " +
+                GeopointsData.getInstance().getCOLORS().get(0) + ", " + 0 + ", " + 0 + ")");
         db.execSQL("INSERT INTO schedule VALUES (0,'11:00',' meet near bus')");
         db.execSQL("INSERT INTO schedule VALUES (1,'12:00','go to museum')");
         db.execSQL("INSERT INTO schedule VALUES (2,'13:30',' meeting ')");
