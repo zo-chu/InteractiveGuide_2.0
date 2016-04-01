@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.kitanasoftware.interactiveguide.dataTransfer.ServerConn;
 import com.kitanasoftware.interactiveguide.dataTransfer.StartConn;
+import com.kitanasoftware.interactiveguide.dataTransfer.StartSendingIpServer;
+import com.kitanasoftware.interactiveguide.db.WorkWithDb;
 import com.kitanasoftware.interactiveguide.information.InformatoonScreen_9;
 import com.kitanasoftware.interactiveguide.map.EditingDialog;
 import com.kitanasoftware.interactiveguide.map.MapScreen_5;
@@ -24,9 +28,10 @@ public class  MainScreen_4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen_4);
-
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#127e83"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        WorkWithDb.getWorkWithDb(getApplicationContext());
+        startService(new Intent(getApplicationContext(), StartSendingIpServer.class));
     }
 
     public void MAPclick(View view) {
@@ -62,9 +67,16 @@ public class  MainScreen_4 extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent1 = new Intent(getApplicationContext(), StartConn.class);
-        startService(intent1);
+        // Intent intent = new Intent(this,StartConn.class);
+//        startService(intent);
+        //item.setEnabled(false);
+        //btn=findViewById(R.id.route);
+        //btn.setEnabled(false);
 
+        if(ServerConn.isSTATUS()) {
+            startService(new Intent(getApplicationContext(), StartConn.class));
+            ServerConn.setSTATUS(false);
+        }else Toast.makeText(getApplicationContext(), "Sending has started", Toast.LENGTH_LONG).show();
         return super.onOptionsItemSelected(item);
     }
 }

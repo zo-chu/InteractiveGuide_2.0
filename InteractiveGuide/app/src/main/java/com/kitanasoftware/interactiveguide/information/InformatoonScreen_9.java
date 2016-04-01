@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kitanasoftware.interactiveguide.DrawerAppCompatActivity;
@@ -31,24 +32,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InformatoonScreen_9 extends DrawerAppCompatActivity {
-
-    String guideName;
-    String guidePhone;
-    String tour;
-    String goal;
-    String company;
-    String inf_id;
-    InformationAdapter adapter;
-    ListView listView;
-    ArrayList<Information> informList;
-
-    View edit;
-    View save;
-
-    Bitmap bitPhoto;
+    private View edit;
+    private View save;
+    private String guideName;
+    private String guidePhone;
+    private String tour;
+    private String goal;
+    private String company;
+    private EditText etGuideName;
+    private EditText etGuidePhone;
+    private EditText etTour;
+    private EditText etGoal;
+    private TextView tvCompany;
     private boolean isEdit;
-    String photoPath;
-    WorkWithDb workWithDb;
+    //    String inf_id;
+//    InformationAdapter adapter;
+//    ListView listView;
+    ArrayList<String> informList;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(WorkWithDb.getWorkWithDb().getInformList() != null) {
+            informList = WorkWithDb.getWorkWithDb().getInformList();
+            etGuideName.setText(informList.get(0));
+            etGuidePhone.setText(informList.get(1));
+            etTour.setText(informList.get(2));
+            etGoal.setText(informList.get(3));
+            tvCompany.setText(informList.get(4));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +69,26 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fdc68a"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
-        WorkWithDb.getWorkWithDb().addInformation("dsd", "sss", "ffff", "sss", "sss");
         informList = WorkWithDb.getWorkWithDb().getInformList();
-        adapter = new InformationAdapter(getApplicationContext(), informList);
-        listView = (ListView) findViewById(R.id.lvInform);
-        listView.setAdapter(adapter);
+        etGuideName = (EditText) findViewById(R.id.etFullName);
+        etGuidePhone = (EditText) findViewById(R.id.etPhone);
+        etTour = (EditText) findViewById(R.id.etTour);
+        etGoal = (EditText) findViewById(R.id.etTourGoal);
+        tvCompany =(TextView) findViewById(R.id.tvCompanyName1);
+
+        if(WorkWithDb.getWorkWithDb().getInformList().size() != 0) {
+            informList = WorkWithDb.getWorkWithDb().getInformList();
+            etGuideName.setText(informList.get(0));
+            etGuidePhone.setText(informList.get(1));
+            etTour.setText(informList.get(2));
+            etGoal.setText(informList.get(3));
+            tvCompany.setText(informList.get(4));
+        }
+//
+//
+//        adapter = new InformationAdapter(getApplicationContext(), informList);
+//        listView = (ListView) findViewById(R.id.lvInform);
+//        listView.setAdapter(adapter);
 
     }
 
@@ -72,50 +100,13 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_for_inf, menu);
-
         return true;
     }
 
-    public void downloadFromParse() {
-        ParseQuery<ParseObject> pq = ParseQuery.getQuery("Information");
-        pq.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < list.size(); i++) {
-                        guideName = list.get(i).getString("guide_full_name");
-                        guidePhone = list.get(i).getString("guide_phone");
-                        tour = list.get(i).getString("tour_inform_name");
-                        goal = list.get(i).getString("tour_inform_goal");
-                        company = list.get(i).getString("additional_inform_dev");
-                        inf_id = list.get(i).getObjectId();
-                        ParseFile pf = list.get(i).getParseFile("guide_photo");
-                        pf.getDataInBackground(new GetDataCallback() {
-                            @Override
-                            public void done(byte[] bytes, ParseException e) {
-                                bitPhoto = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                savePhoto();
-                                //workWithDb.addInformation(guideName, guidePhone, tour, goal, company);
-                                informList = workWithDb.getInformList();
-                                adapter = new InformationAdapter(getApplicationContext(), informList);
-                                listView.setAdapter(adapter);
-                                invalidateLv();
-                            }
-                        });
-
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Exeption" + e.toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-    }
 
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         if(menu != null) {
             menu.clear();
         }
@@ -127,11 +118,8 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
         else if(isEdit==true) {
             menu.setGroupVisible(R.menu.edit_for_inform, false);
             getMenuInflater().inflate(R.menu.edit_for_inform, menu);
-
         }
-
         return super.onPrepareOptionsMenu(menu);
-
     }
 
 
@@ -141,98 +129,44 @@ public class InformatoonScreen_9 extends DrawerAppCompatActivity {
         edit = findViewById(R.id.item1);
         save = findViewById(R.id.item2);
         switch (item.getItemId()) {
-            case R.id.item1 :
-                invalidateLv();
-                adapter.startEdit();
+            case R.id.item1:
                 isEdit=true;
-                invalidateLv();
                 invalidateOptionsMenu();
+                etGuideName.setEnabled(true);
+                etGuidePhone.setEnabled(true);
+                etTour.setEnabled(true);
+                etGoal.setEnabled(true);
+                getContentView().invalidate();
                 break;
-
             case R.id.item2 :
-
-                EditText etGuideName = (EditText) findViewById(R.id.etFullName);
-                EditText etGuidePhone = (EditText) findViewById(R.id.etPhone);
-                EditText etTour = (EditText) findViewById(R.id.etTour);
-                EditText etGoal = (EditText) findViewById(R.id.etTourGoal);
-
-
+                isEdit=false;
+                invalidateOptionsMenu();
+                etGuideName.setEnabled(false);
+                etGuidePhone.setEnabled(false);
+                etTour.setEnabled(false);
+                etGoal.setEnabled(false);
                 guideName = etGuideName.getText().toString();
                 guidePhone = etGuidePhone.getText().toString();
                 tour = etTour.getText().toString();
                 goal = etGoal.getText().toString();
-
                 saveToPhone();
-                adapter.stoptEdit();
-
-                isEdit = false;
-                invalidateLv();
-
+                getContentView().invalidate();
                 break;
-            
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+
     public void saveToPhone() {
-        workWithDb = WorkWithDb.getWorkWithDb();
-        workWithDb.updateInformationByIndex(guideName, guidePhone, tour, goal);
+        WorkWithDb.getWorkWithDb().updateInformationByIndex(guideName, guidePhone, tour, goal);
     }
 
-//    public void saveToParse() {
-//        ParseObject po = ParseObject.createWithoutData("Information", "Z9alPJeIal");//id put!!!
-//        //po.put("guide_photo", parseFile);
-//        po.put("guide_full_name", guideName);
-//        po.put("guide_phone", guidePhone);
-//        po.put("tour_inform_name", tour);
-//        po.put("tour_inform_goal", goal);
-//        po.saveInBackground();
-//    }
-
-    public void invalidateLv() {
-        adapter.setList(informList);
-        listView.setAdapter(adapter);
-        invalidateOptionsMenu();
-        listView.invalidate();
-    }
-
-    public byte[] getBytesFromBitmap(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        return stream.toByteArray();
-    }
-
-    // save foto to SD card
-    public void savePhoto() {
-
-        photoPath = Environment.getExternalStorageDirectory() + "/myPhoto" + System.currentTimeMillis() + ".jpg";
-        FileOutputStream fos = null;
-
-        try {
-            fos = new FileOutputStream(photoPath);
-            bitPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
-
-    public Bitmap getPhotoFromGallery(){
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        return BitmapFactory.decodeFile(photoPath, options);
-    }
 }
+
+
+
+
 
 
 

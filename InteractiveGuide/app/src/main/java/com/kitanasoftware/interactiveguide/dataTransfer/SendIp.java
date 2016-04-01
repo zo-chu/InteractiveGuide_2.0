@@ -10,7 +10,8 @@ import java.net.DatagramSocket;
  * Created by dasha on 12/03/16.
  */
 public class SendIp extends Thread {
-   String message = "WELCOME";
+
+    String message = "WELCOME";
 
     @Override
     public void run() {
@@ -26,7 +27,7 @@ public class SendIp extends Thread {
                 DatagramPacket sendPacket = new DatagramPacket(sendData,
                         sendData.length,
                         WifiUtility.getBroadcastAddress(),
-                        5001);
+                        5003);
                 socket.send(sendPacket);
                 System.out.println("send " + message);
             }
