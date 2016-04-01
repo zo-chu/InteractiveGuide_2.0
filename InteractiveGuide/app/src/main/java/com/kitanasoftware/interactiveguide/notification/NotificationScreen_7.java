@@ -87,6 +87,7 @@ public class NotificationScreen_7 extends DrawerAppCompatActivity {
     private void sendSMS(String phoneNumber, String message) {
         getList();
         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        System.out.println("sms_body"+ message + " My location is [" + getLocation() + "]");
         sendIntent.putExtra("sms_body", message + " My location is [" + getLocation() + "]");
         sendIntent.putExtra("address", phoneNumber);
         sendIntent.setType("vnd.android-dir/mms-sms");
