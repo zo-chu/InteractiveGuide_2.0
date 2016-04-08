@@ -19,37 +19,37 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/cardview_dark_background" />
 
-        <TextView
-            android:id="@+id/tvFullName"
-            style="@style/mainViewWithText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Your name"
-            android:visibility="visible" />
+        <!--<TextView-->
+            <!--android:id="@+id/tvFullName"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Your name"-->
+            <!--android:visibility="visible" />-->
 
-        <EditText
-            android:id="@+id/etFullName"
-            style="@style/mainViewWithText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="full name"
-            android:visibility="gone" />
+        <!--<EditText-->
+            <!--android:id="@+id/etFullName"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="full name"-->
+            <!--android:visibility="gone" />-->
 
-        <TextView
-            android:id="@+id/tvPhone"
-            style="@style/mainViewWithText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="phone"
-            android:visibility="visible" />
+        <!--<TextView-->
+            <!--android:id="@+id/tvPhone"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="phone"-->
+            <!--android:visibility="visible" />-->
 
-        <EditText
-            android:id="@+id/etPhone"
-            style="@style/mainViewWithText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="phone"
-            android:visibility="gone" />
+        <!--<EditText-->
+            <!--android:id="@+id/etPhone"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="phone"-->
+            <!--android:visibility="gone" />-->
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -10,33 +10,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvTourGoal"
-            style="@style/mainViewWithText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
+        <!--<TextView-->
+            <!--android:id="@+id/tvTourGoal"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="visible" />-->
 
-        <EditText
-            android:id="@+id/etTourGoal"
-            style="@style/mainViewWithText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+        <!--<EditText-->
+            <!--android:id="@+id/etTourGoal"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="gone" />-->
 
-        <TextView
-            android:id="@+id/tvTour"
-            style="@style/mainViewWithText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
+        <!--<TextView-->
+            <!--android:id="@+id/tvTour"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="visible" />-->
 
-        <EditText
-            android:id="@+id/etTour"
-            style="@style/mainViewWithText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+        <!--<EditText-->
+            <!--android:id="@+id/etTour"-->
+            <!--style="@style/mainViewWithText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="gone" />-->
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

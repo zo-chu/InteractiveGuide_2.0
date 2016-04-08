@@ -12,11 +12,9 @@ public class StartConn extends Service {
     public void onCreate() {
         super.onCreate();
         System.out.println("service started");
-
         ServerConn serverConn = new ServerConn();
         serverConn.start();
-        SendIp sendIp = new SendIp();
-        sendIp.start();
+
     }
     @Override
     public IBinder onBind(Intent intent) {

@@ -20,13 +20,14 @@ public class SendIp extends Thread {
         try {
             while (true) {
                 Thread.sleep(5000);
+                System.out.println("Start");
                 DatagramSocket socket = new DatagramSocket();
                 socket.setBroadcast(true);
                 byte[] sendData = message.getBytes();
                 DatagramPacket sendPacket = new DatagramPacket(sendData,
                         sendData.length,
                         WifiUtility.getBroadcastAddress(),
-                        5001);
+                        5003);
                 socket.send(sendPacket);
                 System.out.println("send " + message);
             }

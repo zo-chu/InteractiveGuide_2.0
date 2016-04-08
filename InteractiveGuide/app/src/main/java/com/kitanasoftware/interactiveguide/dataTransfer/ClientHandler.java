@@ -29,7 +29,6 @@ public class ClientHandler extends Thread{
     public void run() {
         super.run();
         try {
-            //objectInputStrem = new ObjectInputStream(connectedClient.getInputStream());
             objectOutputStream = new ObjectOutputStream(connectedClient.getOutputStream());
             SendDbToGui();
 
@@ -47,6 +46,7 @@ public class ClientHandler extends Thread{
         JSONObject jsonObjectInf = null;
 
         try {
+
             jsonArrayGeo = workWithDb.getJsonArrayGeo();
             System.out.println("--" + jsonArrayGeo.getJSONObject(0)+ " size " + jsonArrayGeo.length());
             jsonArraySchedule = workWithDb.getJsonArraySchedule();
