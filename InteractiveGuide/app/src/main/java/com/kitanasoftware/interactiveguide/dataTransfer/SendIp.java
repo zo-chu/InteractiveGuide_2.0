@@ -10,7 +10,8 @@ import java.net.DatagramSocket;
  * Created by dasha on 12/03/16.
  */
 public class SendIp extends Thread {
-   String message = "WELCOME";
+
+    String message = "WELCOME";
 
     @Override
     public void run() {
