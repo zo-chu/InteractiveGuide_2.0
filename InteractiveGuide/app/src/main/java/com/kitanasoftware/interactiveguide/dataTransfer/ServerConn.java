@@ -66,7 +66,7 @@ public class ServerConn extends Thread {
                     System.out.println("Client ip: " + clientIp);
 
                      // add client's ip to db
-                    if(clientIp!=null) {
+                    if(clientIp!=null&& workWithDb!=null) {
                         workWithDb.addIp(clientIp);
                     }
 
