@@ -16,6 +16,7 @@ import java.net.Socket;
  * Created by dasha on 26/02/16.
  */
 public class ClientHandler extends Thread{
+
     protected Socket connectedClient = null;
     protected ObjectOutputStream objectOutputStream = null;
     protected ObjectInputStream objectInputStrem = null;
@@ -29,6 +30,7 @@ public class ClientHandler extends Thread{
     public void run() {
         super.run();
         try {
+            //getting ip from Client
             objectOutputStream = new ObjectOutputStream(connectedClient.getOutputStream());
             SendDbToGui();
 
@@ -46,23 +48,30 @@ public class ClientHandler extends Thread{
         JSONObject jsonObjectInf = null;
 
         try {
+            System.out.println("JSONs witch send: ");
 
+            //creating json array with all geopoints
             jsonArrayGeo = workWithDb.getJsonArrayGeo();
             System.out.println("--" + jsonArrayGeo.getJSONObject(0)+ " size " + jsonArrayGeo.length());
+
+            //creating json array with schedule
             jsonArraySchedule = workWithDb.getJsonArraySchedule();
             System.out.println("--" + jsonArraySchedule);
+
+            //creating json with information
             jsonObjectInf = workWithDb.getJsonObjectInform();
             System.out.println("--" + jsonObjectInf);
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("geo",jsonArrayGeo);
-            jsonObject.put("schedule",jsonArraySchedule);
-            jsonObject.put("inf",jsonObjectInf);
 
+            //put JASONs to one JSON object for sending
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("geo", jsonArrayGeo);
+            jsonObject.put("schedule", jsonArraySchedule);
+            jsonObject.put("inf", jsonObjectInf);
+
+            //sending JSON object to client
             objectOutputStream.writeObject(jsonObject.toString());
-            System.out.println("geo" + workWithDb.getGeopointList().size());
-            System.out.println("s" + workWithDb.getScheduleList().size());
-            System.out.println("geo" + workWithDb.getInformList().get(0).toString());
+            System.out.println("DB was sent");
 
         } catch (Exception e) {
             e.printStackTrace();

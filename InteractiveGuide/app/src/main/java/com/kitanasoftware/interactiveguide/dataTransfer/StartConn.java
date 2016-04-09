@@ -11,7 +11,7 @@ public class StartConn extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        System.out.println("service started");
+        System.out.println("service for sending db started");
         ServerConn serverConn = new ServerConn();
         serverConn.start();
 

@@ -55,14 +55,23 @@ public class ServerConn extends Thread {
             Socket connectionSocket;
             while (true) {
                 try {
+                    //waiting for clients
                     connectionSocket = serverConn.accept();
-                    System.out.println("Conn OK!!");
+                    System.out.println("Conn OK!! Client has connected");
 
+                    //accept ip from Client
                     BufferedReader br = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                     clientIp= br.readLine();
-                    System.out.println(clientIp);
-                 //   workWithDb.addIp(clientIp);
 
+                    System.out.println("Client ip: " + clientIp);
+
+                     // add client's ip to db
+                    if(clientIp!=null) {
+                        workWithDb.addIp(clientIp);
+                    }
+
+                    //starting thread for sending db
+                    // every sending executes in  new tread
                     (new ClientHandler(connectionSocket)).start();
 //                    connectionSocket.close();
 //                    serverConn.close();
